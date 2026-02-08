@@ -63,7 +63,7 @@ class Vocab:
         use_ste100_technical_word: bool = False,
         predicate: Callable[[Word], bool] | None = None,
     ) -> None:
-        """Ctor."""
+        """Instantiates a vocabulary object."""
 
         if files is None:
             files = []
@@ -104,7 +104,7 @@ class Vocab:
             )
             self._items.extend(words)
 
-        self._items = sorted(self._items, key=lambda e: e.name.lower())
+        self.sort(key=self._default_sort_key)
 
     @staticmethod
     def read_jsonl_text(
@@ -147,8 +147,6 @@ class Vocab:
                         result.append(word)
                 except Exception as ex:  # pylint: disable=W0718
                     print(f"[ERROR] {fullname}[#{idx}]: '{ex}'.")
-
-        result = sorted(result, key=lambda e: e.name.lower())
 
         return result
 
@@ -193,3 +191,29 @@ class Vocab:
     def __delitem__(self, index: int) -> None:
         """Remove a `Word` item from the vocabulary by its index."""
         del self._items[index]
+
+    @staticmethod
+    def _default_sort_key(word):
+        """Default sort key is case-insensitive alphabetical order."""
+
+        return word.name.lower()
+
+    def sort(
+        self,
+        *,
+        key: Callable[[Word], str] | None = None,
+        reverse=False
+    ) -> None:
+        """
+        Sort the `Word` items in the vocabulary.
+
+        If you do not define `key`, then the result of the sort is
+        alphabetically.
+        """
+
+        if key is None:
+            key = Vocab._default_sort_key
+        assert callable(key), type(key)
+        assert isinstance(reverse, bool)
+
+        self._items.sort(key=key, reverse=reverse)

@@ -24,6 +24,7 @@ import unittest
 
 from src.biz.dfch.asdste100vocab.vocab import Vocab
 from src.biz.dfch.asdste100vocab.word import Word
+from src.biz.dfch.asdste100vocab.word_status import WordStatus
 from src.biz.dfch.asdste100vocab.word_type import WordType
 
 
@@ -488,3 +489,60 @@ class TestVocab(unittest.TestCase):
         self.assertIsNotNone(result)
         self.assertEqual(Word, type(result))
         self.assertTrue(result.name.lower().startswith("a"))
+
+    def test_sort_reverse(self):
+
+        word_list = "test_vocab_word_list2.jsonl"
+        fullname = Path(__file__).parent / word_list
+
+        expected = 2
+
+        sut = Vocab(
+            files=[fullname],
+            use_ste100=False,
+            use_ste100_technical_word=False,
+        )
+
+        result = len(sut)
+        self.assertEqual(expected, result)
+
+        item = sut[0]
+        self.assertIsNotNone(item)
+        self.assertEqual("abaft", item.name.lower())
+
+        sut.sort(reverse=True)
+
+        item = sut[-1]
+        self.assertIsNotNone(item)
+        self.assertEqual("abaft", item.name.lower())
+
+    def test_sort_custom_key(self):
+
+        word_list = "test_vocab_word_list3.jsonl"
+        fullname = Path(__file__).parent / word_list
+
+        expected = 3
+
+        sut = Vocab(
+            files=[fullname],
+            use_ste100=False,
+            use_ste100_technical_word=False,
+        )
+
+        result = len(sut)
+        self.assertEqual(expected, result)
+
+        item = sut[0]
+        self.assertIsNotNone(item)
+        self.assertEqual("a", item.name.lower())
+
+        item = sut[-1]
+        self.assertIsNotNone(item)
+        self.assertEqual("you", item.name.lower())
+
+        sut.sort(key=lambda w: w.status)
+
+        item = sut[-1]
+        self.assertIsNotNone(item)
+        self.assertEqual("abaft", item.name.lower())
+        self.assertEqual(WordStatus.REJECTED, item.status)
