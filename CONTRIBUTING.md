@@ -1,6 +1,6 @@
-# Contributing to biz.dfch.AsdSte100Lookup
+# Contributing to biz.dfch.AsdSte100Vocab
 
-Thank you for your interest in contributing to **biz.dfch.Vocab**!  
+Thank you for your interest in contributing to **biz.dfch.AsdSte100Vocab**!  
 This document describes how to propose changes, report bugs, and submit patches.
 
 The project is licensed under the **GNU General Public License v3.0 (GPLv3)**.  
@@ -23,7 +23,7 @@ This project has a `CODE_OF_CONDUCT.md`, you must follow it.
 ## 2. How to Ask Questions and Report Bugs
 
 - **Bug reports**: Open an issue in the GitHub issue tracker:
-  - URL: `https://github.com/dfch/biz.dfch.Vocab/issues`
+  - URL: `https://github.com/dfch/biz.dfch.AsdSte100Vocab/issues`
   - Include:
     - Steps to reproduce
     - Expected behavior
@@ -50,8 +50,8 @@ Before opening a new issue, please **search existing issues** to avoid duplicate
 ### 3.2. Clone and create a virtual environment
 
 ```bash
-git clone https://github.com/dfch/biz.dfch.Vocab.git
-cd biz.dfch.Vocab
+git clone https://github.com/dfch/biz.dfch.AsdSte100Vocab.git
+cd biz.dfch.AsdSte100Vocab
 
 python3.13 -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate[.bat|.ps1]
