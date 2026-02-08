@@ -21,7 +21,7 @@
 
 import unittest
 
-import src.biz.dfch.ste100vocab as vocab
+import src.biz.dfch.asdste100vocab as vocab
 
 
 class TestMain(unittest.TestCase):

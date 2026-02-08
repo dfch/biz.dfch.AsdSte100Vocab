@@ -15,6 +15,7 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
+from .vocab import Vocab
 from .word import Word
 from .word_category import WordCategory
 from .word_meaning import WordMeaning
@@ -24,6 +25,7 @@ from .word_status import WordStatus
 from .word_type import WordType
 
 __all__ = [
+    "Vocab",
     "Word",
     "WordCategory",
     "WordMeaning",

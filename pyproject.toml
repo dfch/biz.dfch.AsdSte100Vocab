@@ -53,6 +53,7 @@ dependencies = [
 # python -m pip install -e ".[dev]"
 [project.optional-dependencies]
 dev = [
+    "twine",
     "build",
 ]
 
@@ -61,7 +62,7 @@ Homepage = "https://github.com/dfch/biz.dfch.AsdSte100Vocab.git"
 Issues = "https://github.com/dfch/biz.dfch.AsdSte100Vocab/issues"
 
 [project.scripts]
-ste100-parser = "biz.dfch.ste100vocab.__main__:main"
+ste100-vocab = "biz.dfch.asdste100vocab.__main__:main"
 
 [tool.black]  
 line-length = 80
@@ -71,6 +72,6 @@ where = ["src"]
 namespaces = true
 
 [tool.setuptools.package-data]
-"biz.dfch.ste100vocab" = [
+"biz.dfch.asdste100vocab" = [
     "data/*.jsonl"
 ]

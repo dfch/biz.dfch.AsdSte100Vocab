@@ -22,9 +22,9 @@
 from pathlib import Path
 import unittest
 
-from src.biz.dfch.ste100vocab.vocab import Vocab
-from src.biz.dfch.ste100vocab.word import Word
-from src.biz.dfch.ste100vocab.word_type import WordType
+from src.biz.dfch.asdste100vocab.vocab import Vocab
+from src.biz.dfch.asdste100vocab.word import Word
+from src.biz.dfch.asdste100vocab.word_type import WordType
 
 
 class TestVocab(unittest.TestCase):
