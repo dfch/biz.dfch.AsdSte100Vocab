@@ -7,3 +7,11 @@
 
 
 [biz.dfch.AsdSte100Lookup](https://github.com/dfch/biz.dfch.AsdSte100Lookup) uses this library for its word lists.
+
+## Installation
+
+[biz-dfch-ste100vocab](https://pypi.org/project/biz-dfch-ste100vocab/) is on [PyPI](https://pypi.org). Create a virtual environment and install the library with `pip`:
+
+```
+pip install biz-dfch-ste100vocab
+```
