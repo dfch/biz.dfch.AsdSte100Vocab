@@ -15,20 +15,13 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from .word import Word
-from .word_category import WordCategory
-from .word_meaning import WordMeaning
-from .word_note import WordNote
-from .word_source import WordSource
-from .word_status import WordStatus
-from .word_type import WordType
+# pylint: disable=C0114
+# pylint: disable=C0115
+# pylint: disable=C0116
 
-__all__ = [
-    "Word",
-    "WordCategory",
-    "WordMeaning",
-    "WordNote",
-    "WordSource",
-    "WordStatus",
-    "WordType",
-]
+import unittest
+
+
+class TestTest(unittest.TestCase):
+    def test_this_test_does_nothing_and_must_pass(self):
+        pass

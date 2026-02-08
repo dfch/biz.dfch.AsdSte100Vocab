@@ -15,20 +15,14 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from .word import Word
-from .word_category import WordCategory
-from .word_meaning import WordMeaning
-from .word_note import WordNote
-from .word_source import WordSource
-from .word_status import WordStatus
-from .word_type import WordType
+"""BuiltInVocab enumeration."""
 
-__all__ = [
-    "Word",
-    "WordCategory",
-    "WordMeaning",
-    "WordNote",
-    "WordSource",
-    "WordStatus",
-    "WordType",
-]
+from enum import StrEnum
+
+
+class BuiltInVocab(StrEnum):
+    """ASD STE100 builtin vocabulary."""
+
+    DATA_DIR = "data"
+    STE100_BASE = "asdste100_issue9_base.jsonl"
+    STE100_TECHNICAL_WORDS = "asdste100_issue9_technical_words.jsonl"

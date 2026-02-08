@@ -21,7 +21,28 @@
 
 import unittest
 
+import src.biz.dfch.ste100vocab as vocab
+
 
 class TestMain(unittest.TestCase):
-    def test_this_test_does_nothing_and_must_pass(self):
-        pass
+    def test_import(self):
+        self.assertEqual("Word", vocab.Word.__name__)
+        self.assertEqual("Word", vocab.Word.__qualname__)
+
+        self.assertEqual("WordCategory", vocab.WordCategory.__name__)
+        self.assertEqual("WordCategory", vocab.WordCategory.__qualname__)
+
+        self.assertEqual("WordMeaning", vocab.WordMeaning.__name__)
+        self.assertEqual("WordMeaning", vocab.WordMeaning.__qualname__)
+
+        self.assertEqual("WordNote", vocab.WordNote.__name__)
+        self.assertEqual("WordNote", vocab.WordNote.__qualname__)
+
+        self.assertEqual("WordSource", vocab.WordSource.__name__)
+        self.assertEqual("WordSource", vocab.WordSource.__qualname__)
+
+        self.assertEqual("WordStatus", vocab.WordStatus.__name__)
+        self.assertEqual("WordStatus", vocab.WordStatus.__qualname__)
+
+        self.assertEqual("WordType", vocab.WordType.__name__)
+        self.assertEqual("WordType", vocab.WordType.__qualname__)
