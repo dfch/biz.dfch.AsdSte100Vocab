@@ -15,24 +15,16 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-"""The main library init file."""
+"""Test file definitions."""
 
-from .vocab import Vocab
-from .word import Word
-from .word_category import WordCategory
-from .word_meaning import WordMeaning
-from .word_note import WordNote
-from .word_source import WordSource
-from .word_status import WordStatus
-from .word_type import WordType
+from enum import StrEnum
 
-__all__ = [
-    "Vocab",
-    "Word",
-    "WordCategory",
-    "WordMeaning",
-    "WordNote",
-    "WordSource",
-    "WordStatus",
-    "WordType",
-]
+
+class VocabFile(StrEnum):
+    """Definitions for test vocabulary files."""
+
+    NON_EXISTENT_FILE = "this-word-list-does-not-exist.jsonl"
+    ONE_ITEM = "test_vocab_word_list1.jsonl"
+    TWO_ITEMS = "test_vocab_word_list2.jsonl"
+    THREE_ITEMS = "test_vocab_word_list3.jsonl"
+    COMPLETE = "test_word_complete.jsonl"

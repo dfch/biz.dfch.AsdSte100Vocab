@@ -1,30 +1,34 @@
-# Copyright (c) 2026 Ronald Rink, http://d-fens.ch
+# Copyright (C) 2026 Ronald Rink, d-fens GmbH, http://d-fens.ch
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
+# it under the terms of the GNU Affero General Public License as published
+# by the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
-# SPDX-License-Identifier: GPL-3.0-or-later
+# SPDX-License-Identifier: AGPL-3.0-or-later
 
 # pylint: disable=C0114
 # pylint: disable=C0115
 # pylint: disable=C0116
+# pylint: disable=R0904
 
 from pathlib import Path
 import unittest
 
 from src.biz.dfch.asdste100vocab.vocab import Vocab
 from src.biz.dfch.asdste100vocab.word import Word
+from src.biz.dfch.asdste100vocab.word_status import WordStatus
 from src.biz.dfch.asdste100vocab.word_type import WordType
+
+from .vocab_file import VocabFile
 
 
 class TestVocab(unittest.TestCase):
@@ -145,7 +149,7 @@ class TestVocab(unittest.TestCase):
 
     def test_load_custom_word_list(self):
 
-        word_list = "test_vocab_word_list1.jsonl"
+        word_list = VocabFile.ONE_ITEM
         fullname = Path(__file__).parent / word_list
 
         expected = 1
@@ -161,7 +165,7 @@ class TestVocab(unittest.TestCase):
 
     def test_load_non_existent_word_list_throws(self):
 
-        word_list = "this-word-list-does-not-exist.jsonl"
+        word_list = VocabFile.NON_EXISTENT_FILE
         fullname = Path(__file__).parent / word_list
 
         with self.assertRaises(FileNotFoundError) as ex:
@@ -174,9 +178,9 @@ class TestVocab(unittest.TestCase):
 
     def test_load_multiple_word_lists(self):
 
-        word_list1 = "test_vocab_word_list1.jsonl"
+        word_list1 = VocabFile.ONE_ITEM
         fullname1 = Path(__file__).parent / word_list1
-        word_list2 = "test_vocab_word_list2.jsonl"
+        word_list2 = VocabFile.TWO_ITEMS
         fullname2 = Path(__file__).parent / word_list2
 
         expected = 3
@@ -192,9 +196,9 @@ class TestVocab(unittest.TestCase):
 
     def test_load_all_and_multiple_word_lists(self):
 
-        word_list1 = "test_vocab_word_list1.jsonl"
+        word_list1 = VocabFile.ONE_ITEM
         fullname1 = Path(__file__).parent / word_list1
-        word_list2 = "test_vocab_word_list2.jsonl"
+        word_list2 = VocabFile.TWO_ITEMS
         fullname2 = Path(__file__).parent / word_list2
 
         expected = 2982
@@ -211,9 +215,9 @@ class TestVocab(unittest.TestCase):
 
     def test_iterate(self):
 
-        word_list1 = "test_vocab_word_list1.jsonl"
+        word_list1 = VocabFile.ONE_ITEM
         fullname1 = Path(__file__).parent / word_list1
-        word_list2 = "test_vocab_word_list2.jsonl"
+        word_list2 = VocabFile.TWO_ITEMS
         fullname2 = Path(__file__).parent / word_list2
 
         expected = 3
@@ -235,7 +239,7 @@ class TestVocab(unittest.TestCase):
 
     def test_pop(self):
 
-        word_list = "test_vocab_word_list1.jsonl"
+        word_list = VocabFile.ONE_ITEM
         fullname = Path(__file__).parent / word_list
 
         expected = 0
@@ -270,7 +274,7 @@ class TestVocab(unittest.TestCase):
 
     def test_del(self):
 
-        word_list = "test_vocab_word_list1.jsonl"
+        word_list = VocabFile.ONE_ITEM
         fullname = Path(__file__).parent / word_list
 
         expected = 0
@@ -291,7 +295,7 @@ class TestVocab(unittest.TestCase):
 
     def test_del_throws(self):
 
-        word_list = "test_vocab_word_list1.jsonl"
+        word_list = VocabFile.ONE_ITEM
         fullname = Path(__file__).parent / word_list
 
         expected = 1
@@ -313,7 +317,7 @@ class TestVocab(unittest.TestCase):
 
     def test_pop_first(self):
 
-        word_list = "test_vocab_word_list2.jsonl"
+        word_list = VocabFile.TWO_ITEMS
         fullname = Path(__file__).parent / word_list
 
         expected = 1
@@ -333,7 +337,7 @@ class TestVocab(unittest.TestCase):
 
     def test_index(self):
 
-        word_list = "test_vocab_word_list2.jsonl"
+        word_list = VocabFile.TWO_ITEMS
         fullname = Path(__file__).parent / word_list
 
         expected = 2
@@ -357,7 +361,7 @@ class TestVocab(unittest.TestCase):
 
     def test_index_raises(self):
 
-        word_list = "test_vocab_word_list2.jsonl"
+        word_list = VocabFile.TWO_ITEMS
         fullname = Path(__file__).parent / word_list
 
         expected = 2
@@ -376,7 +380,7 @@ class TestVocab(unittest.TestCase):
 
     def test_append(self):
 
-        word_list = "test_vocab_word_list1.jsonl"
+        word_list = VocabFile.ONE_ITEM
         fullname = Path(__file__).parent / word_list
 
         expected = 1
@@ -404,7 +408,7 @@ class TestVocab(unittest.TestCase):
 
     def test_append_throws(self):
 
-        word_list = "test_vocab_word_list1.jsonl"
+        word_list = VocabFile.ONE_ITEM
         fullname = Path(__file__).parent / word_list
 
         expected = 1
@@ -423,7 +427,7 @@ class TestVocab(unittest.TestCase):
 
     def test_extend(self):
 
-        word_list = "test_vocab_word_list1.jsonl"
+        word_list = VocabFile.ONE_ITEM
         fullname = Path(__file__).parent / word_list
 
         expected = 1
@@ -451,7 +455,7 @@ class TestVocab(unittest.TestCase):
 
     def test_remove(self):
 
-        word_list = "test_vocab_word_list1.jsonl"
+        word_list = VocabFile.ONE_ITEM
         fullname = Path(__file__).parent / word_list
 
         expected = 1
@@ -488,3 +492,60 @@ class TestVocab(unittest.TestCase):
         self.assertIsNotNone(result)
         self.assertEqual(Word, type(result))
         self.assertTrue(result.name.lower().startswith("a"))
+
+    def test_sort_reverse(self):
+
+        word_list = VocabFile.TWO_ITEMS
+        fullname = Path(__file__).parent / word_list
+
+        expected = 2
+
+        sut = Vocab(
+            files=[fullname],
+            use_ste100=False,
+            use_ste100_technical_word=False,
+        )
+
+        result = len(sut)
+        self.assertEqual(expected, result)
+
+        item = sut[0]
+        self.assertIsNotNone(item)
+        self.assertEqual("abaft", item.name.lower())
+
+        sut.sort(reverse=True)
+
+        item = sut[-1]
+        self.assertIsNotNone(item)
+        self.assertEqual("abaft", item.name.lower())
+
+    def test_sort_custom_key(self):
+
+        word_list = VocabFile.THREE_ITEMS
+        fullname = Path(__file__).parent / word_list
+
+        expected = 3
+
+        sut = Vocab(
+            files=[fullname],
+            use_ste100=False,
+            use_ste100_technical_word=False,
+        )
+
+        result = len(sut)
+        self.assertEqual(expected, result)
+
+        item = sut[0]
+        self.assertIsNotNone(item)
+        self.assertEqual("a", item.name.lower())
+
+        item = sut[-1]
+        self.assertIsNotNone(item)
+        self.assertEqual("you", item.name.lower())
+
+        sut.sort(key=lambda w: w.status)
+
+        item = sut[-1]
+        self.assertIsNotNone(item)
+        self.assertEqual("abaft", item.name.lower())
+        self.assertEqual(WordStatus.REJECTED, item.status)

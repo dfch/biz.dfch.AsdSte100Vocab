@@ -4,11 +4,11 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "biz-dfch-ste100vocab"
-version = "0.1.1"
+version = "0.1.2"
 description = "The ASD-STE100 (Simplified Technical English) Issue 9 vocabulary."
 readme = "README.md"
 requires-python = ">=3.11"
-license = "GPL-3.0-or-later"
+license = "AGPL-3.0-or-later"
 license-files = ["LICENSE"]
 authors = [{name = "Ronald Rink"}]
 maintainers = [  

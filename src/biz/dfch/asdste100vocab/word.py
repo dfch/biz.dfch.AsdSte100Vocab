@@ -1,19 +1,19 @@
-# Copyright (c) 2025-2026 Ronald Rink, http://d-fens.ch
+# Copyright (C) 2025-2026 Ronald Rink, d-fens GmbH, http://d-fens.ch
 #
 # This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
+# it under the terms of the GNU Affero General Public License as published
+# by the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
+# GNU Affero General Public License for more details.
 #
-# You should have received a copy of the GNU General Public License
+# You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
-# SPDX-License-Identifier: GPL-3.0-or-later
+# SPDX-License-Identifier: AGPL-3.0-or-later
 
 """Word class."""
 
@@ -38,12 +38,12 @@ class Word:
     Represents either an approved or rejected word from the ASD-STE100 standard.
     """
 
-    status: WordStatus
     name: str
-    type_: WordType
-    meanings: list[WordMeaning]
-    spellings: list[str]
-    alternatives: list[Word]
+    status: WordStatus = WordStatus.UNKNOWN
+    type_: WordType = WordType.UNKNOWN
+    meanings: list[WordMeaning] = field(default_factory=list)
+    spellings: list[str] = field(default_factory=list)
+    alternatives: list[Word] = field(default_factory=list)
     source: str = WordSource.UNKNOWN
     category: WordCategory = WordCategory.DEFAULT
     ste_example: list[str] = field(default_factory=list)
