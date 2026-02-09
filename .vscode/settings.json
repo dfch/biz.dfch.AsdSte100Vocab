@@ -26,6 +26,7 @@
         "cython",
         "dacite",
         "darkergreen",
+        "Defence",
         "dfch",
         "dmypy",
         "envrc",
