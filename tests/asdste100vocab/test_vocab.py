@@ -18,6 +18,7 @@
 # pylint: disable=C0114
 # pylint: disable=C0115
 # pylint: disable=C0116
+# pylint: disable=R0904
 
 from pathlib import Path
 import unittest
@@ -26,6 +27,8 @@ from src.biz.dfch.asdste100vocab.vocab import Vocab
 from src.biz.dfch.asdste100vocab.word import Word
 from src.biz.dfch.asdste100vocab.word_status import WordStatus
 from src.biz.dfch.asdste100vocab.word_type import WordType
+
+from .vocab_file import VocabFile
 
 
 class TestVocab(unittest.TestCase):
@@ -146,7 +149,7 @@ class TestVocab(unittest.TestCase):
 
     def test_load_custom_word_list(self):
 
-        word_list = "test_vocab_word_list1.jsonl"
+        word_list = VocabFile.ONE_ITEM
         fullname = Path(__file__).parent / word_list
 
         expected = 1
@@ -162,7 +165,7 @@ class TestVocab(unittest.TestCase):
 
     def test_load_non_existent_word_list_throws(self):
 
-        word_list = "this-word-list-does-not-exist.jsonl"
+        word_list = VocabFile.NON_EXISTENT_FILE
         fullname = Path(__file__).parent / word_list
 
         with self.assertRaises(FileNotFoundError) as ex:
@@ -175,9 +178,9 @@ class TestVocab(unittest.TestCase):
 
     def test_load_multiple_word_lists(self):
 
-        word_list1 = "test_vocab_word_list1.jsonl"
+        word_list1 = VocabFile.ONE_ITEM
         fullname1 = Path(__file__).parent / word_list1
-        word_list2 = "test_vocab_word_list2.jsonl"
+        word_list2 = VocabFile.TWO_ITEMS
         fullname2 = Path(__file__).parent / word_list2
 
         expected = 3
@@ -193,9 +196,9 @@ class TestVocab(unittest.TestCase):
 
     def test_load_all_and_multiple_word_lists(self):
 
-        word_list1 = "test_vocab_word_list1.jsonl"
+        word_list1 = VocabFile.ONE_ITEM
         fullname1 = Path(__file__).parent / word_list1
-        word_list2 = "test_vocab_word_list2.jsonl"
+        word_list2 = VocabFile.TWO_ITEMS
         fullname2 = Path(__file__).parent / word_list2
 
         expected = 2982
@@ -212,9 +215,9 @@ class TestVocab(unittest.TestCase):
 
     def test_iterate(self):
 
-        word_list1 = "test_vocab_word_list1.jsonl"
+        word_list1 = VocabFile.ONE_ITEM
         fullname1 = Path(__file__).parent / word_list1
-        word_list2 = "test_vocab_word_list2.jsonl"
+        word_list2 = VocabFile.TWO_ITEMS
         fullname2 = Path(__file__).parent / word_list2
 
         expected = 3
@@ -236,7 +239,7 @@ class TestVocab(unittest.TestCase):
 
     def test_pop(self):
 
-        word_list = "test_vocab_word_list1.jsonl"
+        word_list = VocabFile.ONE_ITEM
         fullname = Path(__file__).parent / word_list
 
         expected = 0
@@ -271,7 +274,7 @@ class TestVocab(unittest.TestCase):
 
     def test_del(self):
 
-        word_list = "test_vocab_word_list1.jsonl"
+        word_list = VocabFile.ONE_ITEM
         fullname = Path(__file__).parent / word_list
 
         expected = 0
@@ -292,7 +295,7 @@ class TestVocab(unittest.TestCase):
 
     def test_del_throws(self):
 
-        word_list = "test_vocab_word_list1.jsonl"
+        word_list = VocabFile.ONE_ITEM
         fullname = Path(__file__).parent / word_list
 
         expected = 1
@@ -314,7 +317,7 @@ class TestVocab(unittest.TestCase):
 
     def test_pop_first(self):
 
-        word_list = "test_vocab_word_list2.jsonl"
+        word_list = VocabFile.TWO_ITEMS
         fullname = Path(__file__).parent / word_list
 
         expected = 1
@@ -334,7 +337,7 @@ class TestVocab(unittest.TestCase):
 
     def test_index(self):
 
-        word_list = "test_vocab_word_list2.jsonl"
+        word_list = VocabFile.TWO_ITEMS
         fullname = Path(__file__).parent / word_list
 
         expected = 2
@@ -358,7 +361,7 @@ class TestVocab(unittest.TestCase):
 
     def test_index_raises(self):
 
-        word_list = "test_vocab_word_list2.jsonl"
+        word_list = VocabFile.TWO_ITEMS
         fullname = Path(__file__).parent / word_list
 
         expected = 2
@@ -377,7 +380,7 @@ class TestVocab(unittest.TestCase):
 
     def test_append(self):
 
-        word_list = "test_vocab_word_list1.jsonl"
+        word_list = VocabFile.ONE_ITEM
         fullname = Path(__file__).parent / word_list
 
         expected = 1
@@ -405,7 +408,7 @@ class TestVocab(unittest.TestCase):
 
     def test_append_throws(self):
 
-        word_list = "test_vocab_word_list1.jsonl"
+        word_list = VocabFile.ONE_ITEM
         fullname = Path(__file__).parent / word_list
 
         expected = 1
@@ -424,7 +427,7 @@ class TestVocab(unittest.TestCase):
 
     def test_extend(self):
 
-        word_list = "test_vocab_word_list1.jsonl"
+        word_list = VocabFile.ONE_ITEM
         fullname = Path(__file__).parent / word_list
 
         expected = 1
@@ -452,7 +455,7 @@ class TestVocab(unittest.TestCase):
 
     def test_remove(self):
 
-        word_list = "test_vocab_word_list1.jsonl"
+        word_list = VocabFile.ONE_ITEM
         fullname = Path(__file__).parent / word_list
 
         expected = 1
@@ -492,7 +495,7 @@ class TestVocab(unittest.TestCase):
 
     def test_sort_reverse(self):
 
-        word_list = "test_vocab_word_list2.jsonl"
+        word_list = VocabFile.TWO_ITEMS
         fullname = Path(__file__).parent / word_list
 
         expected = 2
@@ -518,7 +521,7 @@ class TestVocab(unittest.TestCase):
 
     def test_sort_custom_key(self):
 
-        word_list = "test_vocab_word_list3.jsonl"
+        word_list = VocabFile.THREE_ITEMS
         fullname = Path(__file__).parent / word_list
 
         expected = 3
