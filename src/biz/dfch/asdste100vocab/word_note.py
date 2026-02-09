@@ -30,7 +30,7 @@ if TYPE_CHECKING:
 class WordNote:
     """Represents the ASD-STE100 note in the dictionary."""
 
-    value: str
+    value: str | None = None
     # word: Word | None = None  # forward reference
     words: list[Word] = field(default_factory=list)  # forward reference
     ste_example: str | None = None

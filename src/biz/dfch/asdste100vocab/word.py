@@ -38,12 +38,12 @@ class Word:
     Represents either an approved or rejected word from the ASD-STE100 standard.
     """
 
-    status: WordStatus
     name: str
-    type_: WordType
-    meanings: list[WordMeaning]
-    spellings: list[str]
-    alternatives: list[Word]
+    status: WordStatus = WordStatus.UNKNOWN
+    type_: WordType = WordType.UNKNOWN
+    meanings: list[WordMeaning] = field(default_factory=list)
+    spellings: list[str] = field(default_factory=list)
+    alternatives: list[Word] = field(default_factory=list)
     source: str = WordSource.UNKNOWN
     category: WordCategory = WordCategory.DEFAULT
     ste_example: list[str] = field(default_factory=list)
