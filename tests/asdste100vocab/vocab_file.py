@@ -15,6 +15,8 @@
 #
 # SPDX-License-Identifier: GPL-3.0-or-later
 
+"""Test file definitions."""
+
 from enum import StrEnum
 
 
@@ -25,4 +27,4 @@ class VocabFile(StrEnum):
     ONE_ITEM = "test_vocab_word_list1.jsonl"
     TWO_ITEMS = "test_vocab_word_list2.jsonl"
     THREE_ITEMS = "test_vocab_word_list3.jsonl"
-    SPELLING = "test_word_spelling.jsonl"
+    COMPLETE = "test_word_complete.jsonl"
