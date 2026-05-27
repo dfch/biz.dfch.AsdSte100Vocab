@@ -55,6 +55,8 @@ dependencies = [
 dev = [
     "twine",
     "build",
+    "pylint",
+    "uv"
 ]
 
 [project.urls]  
