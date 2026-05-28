@@ -32,6 +32,12 @@ This is a Python library, that implements an [ASD-STE100 Issue 9](https://www.as
 pip install biz-dfch-ste100vocab
 ```
 
+Or install with `uv`:
+
+```
+uv add biz-dfch-ste100vocab
+```
+
 ## License
 
 This library is licensed under the [GNU Affero General Public License](https://www.gnu.org/licenses/agpl-3.0). See [LICENSE](./LICENSE) for more information.
