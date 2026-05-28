@@ -7,7 +7,7 @@ on:
     types: [published]
 
 permissions:
-  contents: read
+  contents: write
   id-token: write
 
 jobs:
@@ -50,3 +50,9 @@ jobs:
 
     - name: Publish to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
+
+    - name: Upload to GitHub release
+      if: github.event_name == 'release'
+      run: gh release upload ${{ github.event.release.tag_name }} dist/*
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
