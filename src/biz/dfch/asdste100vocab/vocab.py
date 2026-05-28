@@ -81,14 +81,12 @@ class Vocab:
         self._items = []
         self._files = []
 
-        data_dir = Path(__file__).parent / BuiltInVocab.DATA_DIR
-
         if use_ste100:
-            base_vocab = data_dir / BuiltInVocab.STE100_BASE
+            base_vocab = BuiltInVocab.STE100_BASE.value
             self._files.append(base_vocab)
 
         if use_ste100_technical_word:
-            tn_vocab = data_dir / BuiltInVocab.STE100_TECHNICAL_WORDS
+            tn_vocab = BuiltInVocab.STE100_TECHNICAL_WORDS.value
             self._files.append(tn_vocab)
 
         self._files.extend(files)
