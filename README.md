@@ -4,6 +4,8 @@
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPLv3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 ![Python](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13-blue.svg)
 [![Pylint and unittest](https://github.com/dfch/biz.dfch.AsdSte100Vocab/actions/workflows/ci.yml/badge.svg)](https://github.com/dfch/biz.dfch.AsdSte100Vocab/actions/workflows/ci.yml)
+[![PyPI version](https://img.shields.io/pypi/v/biz-dfch-ste100vocab.svg)](https://pypi.org/project/biz-dfch-ste100vocab/)
+[![PyPI downloads](https://img.shields.io/pypi/dm/biz-dfch-ste100vocab.svg)](https://pypistats.org/packages/biz-dfch-ste100vocab)
 
 ## Introduction
 
