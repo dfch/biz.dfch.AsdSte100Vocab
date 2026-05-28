@@ -519,6 +519,136 @@ class TestVocab(unittest.TestCase):
         self.assertIsNotNone(item)
         self.assertEqual("abaft", item.name.lower())
 
+    def test_write_jsonl_text_returns_list_of_strings(self):
+
+        word_list = VocabFile.TWO_ITEMS
+        fullname = Path(__file__).parent / word_list
+
+        sut = Vocab(
+            files=[fullname],
+            use_ste100=False,
+            use_ste100_technical_word=False,
+        )
+
+        result = sut.write_jsonl_text()
+
+        self.assertIsNotNone(result)
+        self.assertIsInstance(result, list)
+        self.assertEqual(2, len(result))
+        for line in result:
+            self.assertIsInstance(line, str)
+
+    def test_write_jsonl_text_each_line_is_valid_json(self):
+
+        import json
+
+        word_list = VocabFile.TWO_ITEMS
+        fullname = Path(__file__).parent / word_list
+
+        sut = Vocab(
+            files=[fullname],
+            use_ste100=False,
+            use_ste100_technical_word=False,
+        )
+
+        result = sut.write_jsonl_text()
+
+        for line in result:
+            parsed = json.loads(line)
+            self.assertIsInstance(parsed, dict)
+            self.assertIn("name", parsed)
+
+    def test_write_jsonl_text_contains_word_name(self):
+
+        import json
+
+        word_list = VocabFile.TWO_ITEMS
+        fullname = Path(__file__).parent / word_list
+
+        sut = Vocab(
+            files=[fullname],
+            use_ste100=False,
+            use_ste100_technical_word=False,
+        )
+
+        result = sut.write_jsonl_text()
+
+        self.assertEqual(2, len(result))
+        print(result[0])
+        self.assertEqual("abaft", json.loads(result[0])["name"])
+        print(result[1])
+        self.assertEqual("abandon", json.loads(result[1])["name"])
+
+    def test_write_jsonl_text_is_sorted_by_default(self):
+
+        word_list = VocabFile.TWO_ITEMS
+        fullname = Path(__file__).parent / word_list
+
+        sut = Vocab(
+            files=[fullname],
+            use_ste100=False,
+            use_ste100_technical_word=False,
+        )
+
+        result = sut.write_jsonl_text()
+
+        import json
+
+        names = [json.loads(line)["name"].lower() for line in result]
+        self.assertEqual(sorted(names), names)
+
+    def test_write_jsonl_text_roundtrip(self):
+
+        word_list = VocabFile.TWO_ITEMS
+        fullname = Path(__file__).parent / word_list
+
+        sut = Vocab(
+            files=[fullname],
+            use_ste100=False,
+            use_ste100_technical_word=False,
+        )
+
+        lines = sut.write_jsonl_text()
+
+        self.assertEqual(len(sut), len(lines))
+
+        for idx, line in enumerate(lines):
+            original = sut[idx]
+            result = Vocab.read_jsonl_text(line)
+
+            self.assertIsNotNone(result)
+            self.assertEqual(Word, type(result))
+            self.assertEqual(original, result)
+
+    def test_write_jsonl_text_empty_vocab_returns_empty_list(self):
+
+        sut = Vocab(
+            use_ste100=False,
+            use_ste100_technical_word=False,
+        )
+
+        result = sut.write_jsonl_text()
+
+        self.assertIsNotNone(result)
+        self.assertIsInstance(result, list)
+        self.assertEqual(0, len(result))
+
+    def test_write_jsonl_text_no_trailing_newlines(self):
+
+        word_list = VocabFile.ONE_ITEM
+        fullname = Path(__file__).parent / word_list
+
+        sut = Vocab(
+            files=[fullname],
+            use_ste100=False,
+            use_ste100_technical_word=False,
+        )
+
+        result = sut.write_jsonl_text()
+
+        for line in result:
+            self.assertFalse(line.endswith("\n"), repr(line))
+
     def test_sort_custom_key(self):
 
         word_list = VocabFile.THREE_ITEMS

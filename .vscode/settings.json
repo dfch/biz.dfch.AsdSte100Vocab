@@ -61,6 +61,8 @@
         "ropeproject",
         "scrapy",
         "sdist",
+        "serialise",
+        "serialised",
         "setuptools",
         "Spyder",
         "spyderproject",

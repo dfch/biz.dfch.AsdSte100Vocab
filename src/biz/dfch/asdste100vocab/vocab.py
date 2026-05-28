@@ -18,6 +18,8 @@
 """Vocabulary class."""
 
 from __future__ import annotations
+import dataclasses
+import enum
 import json
 from pathlib import Path
 from typing import Callable
@@ -212,3 +214,95 @@ class Vocab:
         assert isinstance(reverse, bool)
 
         self._items.sort(key=key, reverse=reverse)
+
+    @staticmethod
+    def _word_to_dict(word: Word) -> dict[str, object]:
+        """
+        Change a `Word` dataclass to a dict that you can convert to JSON.
+        """
+
+        def _convert(obj: object) -> object:
+            if isinstance(obj, enum.Enum):
+                return obj.value
+            if isinstance(obj, dict):
+                return {k: _convert(v) for k, v in obj.items()}
+            if isinstance(obj, list):
+                return [_convert(i) for i in obj]
+            return obj
+
+        raw: dict[str, object] = dataclasses.asdict(word)
+        result = _convert(raw)
+        assert isinstance(result, dict)
+        return result
+
+    def write_jsonl_text(
+        self,
+    ) -> list[str]:
+        """
+        Serialise the vocabulary to a list of JSONL lines.
+
+        Each element in the returned list is a single JSON-encoded string
+        representing one `Word`, without a trailing newline.
+
+        Parameters
+        ----------
+
+        Returns
+        -------
+        list[str]
+            One JSON string per `Word`.
+        """
+
+        return [
+            json.dumps(Vocab._word_to_dict(word), ensure_ascii=False)
+            for word in self._items
+        ]
+
+    def write_jsonl_file(
+        self,
+        path: Path,
+        *,
+        overwrite: bool = False,
+        encoding: str = "utf-8",
+        create_parents: bool = False,
+    ) -> int:
+        """
+        Write the vocabulary to a JSONL file.
+
+        Each `Word` is serialised as a single JSON line by delegating to
+        :meth:`write_jsonl_text`.
+
+        Parameters
+        ----------
+        path:
+            Destination file path.
+        overwrite:
+            When ``False`` (default) raise ``FileExistsError`` if *path*
+            already exists.
+        encoding:
+            File encoding (default ``"utf-8"``).
+        create_parents:
+            When ``True`` create any missing parent directories.
+
+        Returns
+        -------
+        int
+            Number of words written.
+        """
+
+        assert isinstance(path, Path), type(path)
+        assert isinstance(overwrite, bool), type(overwrite)
+        assert isinstance(encoding, str), type(encoding)
+        assert isinstance(create_parents, bool), type(create_parents)
+
+        if path.exists() and not overwrite:
+            raise FileExistsError(path)
+
+        if create_parents:
+            path.parent.mkdir(parents=True, exist_ok=True)
+
+        lines = self.write_jsonl_text()
+        with open(path, "w", encoding=encoding) as f:
+            f.writelines(line + "\n" for line in lines)
+
+        return len(lines)
