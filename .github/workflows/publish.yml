@@ -11,6 +11,9 @@ permissions:
 jobs:
   publish-to-testpypi:
     name: Publish to TestPyPI
+    env:
+      # Opt-in to Node 24 to avoid Node 20 deprecation warnings (effective June 2026)
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     runs-on: ubuntu-latest
     environment: testpypi
     steps:
