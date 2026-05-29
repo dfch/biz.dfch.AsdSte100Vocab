@@ -183,6 +183,29 @@ class Vocab:
 
         self._items.remove(word)
 
+    def replace(self, existing: Word, replacement: Word) -> None:
+        """Replace an existing `Word` item with a new `Word` item.
+
+        Parameters
+        ----------
+        existing:
+            The `Word` object currently in the vocabulary to be replaced.
+            Lookup is done by equality (``==``).
+        replacement:
+            The new `Word` object to put in its place.
+
+        Raises
+        ------
+        ValueError
+            If *existing* is not found in the vocabulary.
+        """
+
+        assert isinstance(existing, Word), type(existing)
+        assert isinstance(replacement, Word), type(replacement)
+
+        index = self._items.index(existing)
+        self._items[index] = replacement
+
     def pop(self, index: int = -1) -> Word:
         """Remove and return a `Word` item from the vocabulary by its index."""
 

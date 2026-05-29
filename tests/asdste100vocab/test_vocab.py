@@ -649,6 +649,172 @@ class TestVocab(unittest.TestCase):
         for line in result:
             self.assertFalse(line.endswith("\n"), repr(line))
 
+    def test_replace_succeeds(self):
+
+        word_list = VocabFile.TWO_ITEMS
+        fullname = Path(__file__).parent / word_list
+
+        expected = 2
+
+        sut = Vocab(
+            files=[fullname],
+            use_ste100=False,
+            use_ste100_technical_word=False,
+        )
+
+        result = len(sut)
+        self.assertEqual(expected, result)
+
+        existing = sut[0]
+        self.assertIsNotNone(existing)
+        self.assertEqual("abaft", existing.name.lower())
+
+        replacement = sut[1]
+        self.assertIsNotNone(replacement)
+        self.assertEqual("abandon", replacement.name.lower())
+
+        sut.replace(existing, replacement)
+
+        result = len(sut)
+        self.assertEqual(expected, result)
+
+        item = sut[0]
+        self.assertEqual("abandon", item.name.lower())
+
+    def test_replace_preserves_length(self):
+
+        word_list = VocabFile.TWO_ITEMS
+        fullname = Path(__file__).parent / word_list
+
+        expected = 2
+
+        sut = Vocab(
+            files=[fullname],
+            use_ste100=False,
+            use_ste100_technical_word=False,
+        )
+
+        result = len(sut)
+        self.assertEqual(expected, result)
+
+        existing = sut[0]
+        replacement = sut[1]
+
+        sut.replace(existing, replacement)
+
+        result = len(sut)
+        self.assertEqual(expected, result)
+
+    def test_replace_preserves_position(self):
+
+        word_list = VocabFile.TWO_ITEMS
+        fullname = Path(__file__).parent / word_list
+
+        sut = Vocab(
+            files=[fullname],
+            use_ste100=False,
+            use_ste100_technical_word=False,
+        )
+
+        existing = sut[1]
+        self.assertEqual("abandon", existing.name.lower())
+
+        replacement = sut[0]
+        self.assertEqual("abaft", replacement.name.lower())
+
+        sut.replace(existing, replacement)
+
+        item = sut[1]
+        self.assertEqual("abaft", item.name.lower())
+
+    def test_replace_not_found_throws(self):
+
+        word_list = VocabFile.TWO_ITEMS
+        fullname = Path(__file__).parent / word_list
+
+        sut = Vocab(
+            files=[fullname],
+            use_ste100=False,
+            use_ste100_technical_word=False,
+        )
+
+        not_in_vocab = Vocab.read_jsonl_text(
+            r'{"status":"approved","name":"ZZZZ","type_":"n","meanings":[],"spellings":[],"alternatives":[],"source":"STE100:9","category":"0","ste_example":[],"nonste_example":[],"note":null}'
+        )
+        replacement = sut[0]
+
+        with self.assertRaises(ValueError):
+            sut.replace(not_in_vocab, replacement)
+
+    def test_replace_existing_with_none_throws(self):
+
+        word_list = VocabFile.ONE_ITEM
+        fullname = Path(__file__).parent / word_list
+
+        sut = Vocab(
+            files=[fullname],
+            use_ste100=False,
+            use_ste100_technical_word=False,
+        )
+
+        existing = sut[0]
+
+        with self.assertRaises(AssertionError):
+            sut.replace(existing, None)  # type: ignore
+
+    def test_replace_none_existing_throws(self):
+
+        word_list = VocabFile.ONE_ITEM
+        fullname = Path(__file__).parent / word_list
+
+        sut = Vocab(
+            files=[fullname],
+            use_ste100=False,
+            use_ste100_technical_word=False,
+        )
+
+        replacement = sut[0]
+
+        with self.assertRaises(AssertionError):
+            sut.replace(None, replacement)  # type: ignore
+
+    def test_replace_both_none_throws(self):
+
+        sut = Vocab(
+            use_ste100=False,
+            use_ste100_technical_word=False,
+        )
+
+        with self.assertRaises(AssertionError):
+            sut.replace(None, None)  # type: ignore
+
+    def test_replace_with_same_word_is_idempotent(self):
+
+        word_list = VocabFile.ONE_ITEM
+        fullname = Path(__file__).parent / word_list
+
+        expected = 1
+
+        sut = Vocab(
+            files=[fullname],
+            use_ste100=False,
+            use_ste100_technical_word=False,
+        )
+
+        result = len(sut)
+        self.assertEqual(expected, result)
+
+        existing = sut[0]
+        self.assertEqual("a", existing.name.lower())
+
+        sut.replace(existing, existing)
+
+        result = len(sut)
+        self.assertEqual(expected, result)
+
+        item = sut[0]
+        self.assertEqual(existing, item)
+
     def test_sort_custom_key(self):
 
         word_list = VocabFile.THREE_ITEMS
