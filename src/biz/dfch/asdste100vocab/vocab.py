@@ -258,6 +258,26 @@ class Vocab:
         regex = re.compile(pattern)
         return [item for item in self._items if regex.search(item.name)]
 
+    def filter(self, predicate: Callable[[Word], bool]) -> list[Word]:
+        """
+        Search for words in the vocabulary using a predicate function.
+
+        Parameters
+        ----------
+        predicate:
+            A function that takes a `Word` and returns `True` if it should
+            be included in the result.
+
+        Returns
+        -------
+        list[Word]
+            A list of `Word` objects for which the predicate returned `True`.
+        """
+
+        assert callable(predicate), type(predicate)
+
+        return [item for item in self._items if predicate(item)]
+
     def __delitem__(self, index: int) -> None:
         """Remove a `Word` item from the vocabulary by its index."""
         del self._items[index]

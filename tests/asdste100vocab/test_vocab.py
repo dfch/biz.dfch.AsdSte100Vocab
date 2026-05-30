@@ -903,6 +903,21 @@ class TestVocab(unittest.TestCase):
         self.assertEqual(1, len(result_upper))
         self.assertEqual(result_upper, result_lower)
 
+    def test_filter(self):
+        word_list = VocabFile.TWO_ITEMS
+        fullname = Path(__file__).parent / word_list
+
+        sut = Vocab(
+            files=[fullname],
+            use_ste100=False,
+            use_ste100_technical_word=False,
+        )
+
+        # Filter for words that have a name with length 5
+        result = sut.filter(lambda w: len(w.name) == 5)
+        self.assertEqual(1, len(result))
+        self.assertEqual("abaft", result[0].name.lower())
+
     def test_match_with_regex_anchor(self):
         word_list = VocabFile.TWO_ITEMS
         fullname = Path(__file__).parent / word_list
