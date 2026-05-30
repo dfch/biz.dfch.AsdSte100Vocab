@@ -22,6 +22,7 @@ import dataclasses
 import enum
 import json
 from pathlib import Path
+import re
 from typing import Callable
 from typing import Iterator
 
@@ -210,6 +211,52 @@ class Vocab:
         """Remove and return a `Word` item from the vocabulary by its index."""
 
         return self._items.pop(index)
+
+    def find(self, value: str) -> list[Word]:
+        """
+        Search for words in the vocabulary by name.
+
+        The search is case-insensitive and returns all words whose name
+        contains the specified string.
+
+        Parameters
+        ----------
+        value:
+            The string to search for within the word names.
+
+        Returns
+        -------
+        list[Word]
+            A list of matching `Word` objects.
+        """
+
+        assert isinstance(value, str), type(value)
+
+        search_term = value.lower()
+        return [
+            item for item in self._items
+            if search_term == item.name.lower()
+        ]
+
+    def match(self, pattern: str) -> list[Word]:
+        """
+        Search for words in the vocabulary using a regular expression.
+
+        Parameters
+        ----------
+        pattern:
+            The regular expression pattern to match against word names.
+
+        Returns
+        -------
+        list[Word]
+            A list of matching `Word` objects.
+        """
+
+        assert isinstance(pattern, str), type(pattern)
+
+        regex = re.compile(pattern)
+        return [item for item in self._items if regex.search(item.name)]
 
     def __delitem__(self, index: int) -> None:
         """Remove a `Word` item from the vocabulary by its index."""

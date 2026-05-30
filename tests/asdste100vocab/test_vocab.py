@@ -845,3 +845,103 @@ class TestVocab(unittest.TestCase):
         self.assertIsNotNone(item)
         self.assertEqual("abaft", item.name.lower())
         self.assertEqual(WordStatus.REJECTED, item.status)
+
+    def test_find_with_one_result(self):
+        word_list = VocabFile.TWO_ITEMS
+        fullname = Path(__file__).parent / word_list
+
+        sut = Vocab(
+            files=[fullname],
+            use_ste100=False,
+            use_ste100_technical_word=False,
+        )
+
+        result = sut.find("abaft")
+        self.assertEqual(1, len(result))
+        self.assertEqual("abaft", result[0].name.lower())
+
+    def test_find_with_two_results(self):
+        word_list = VocabFile.SAME_WORD_TWICE
+        fullname = Path(__file__).parent / word_list
+
+        sut = Vocab(
+            files=[fullname],
+            use_ste100=False,
+            use_ste100_technical_word=False,
+        )
+
+        # Both 'abaft' and 'abandon' contain 'aba'
+        result = sut.find("test")
+        self.assertEqual(2, len(result))
+
+    def test_find_with_zero_results(self):
+        word_list = VocabFile.TWO_ITEMS
+        fullname = Path(__file__).parent / word_list
+
+        sut = Vocab(
+            files=[fullname],
+            use_ste100=False,
+            use_ste100_technical_word=False,
+        )
+
+        result = sut.find("non-existent-word")
+        self.assertEqual(0, len(result))
+
+    def test_find_is_case_insensitive(self):
+        word_list = VocabFile.TWO_ITEMS
+        fullname = Path(__file__).parent / word_list
+
+        sut = Vocab(
+            files=[fullname],
+            use_ste100=False,
+            use_ste100_technical_word=False,
+        )
+
+        result_upper = sut.find("ABAFT")
+        result_lower = sut.find("abaft")
+
+        self.assertEqual(1, len(result_upper))
+        self.assertEqual(result_upper, result_lower)
+
+    def test_match_with_regex_anchor(self):
+        word_list = VocabFile.TWO_ITEMS
+        fullname = Path(__file__).parent / word_list
+
+        sut = Vocab(
+            files=[fullname],
+            use_ste100=False,
+            use_ste100_technical_word=False,
+        )
+
+        # '^aba' matches both 'abaft' and 'abandon'
+        result = sut.match("^aba")
+        self.assertEqual(2, len(result))
+
+    def test_match_with_zero_results(self):
+        word_list = VocabFile.TWO_ITEMS
+        fullname = Path(__file__).parent / word_list
+
+        sut = Vocab(
+            files=[fullname],
+            use_ste100=False,
+            use_ste100_technical_word=False,
+        )
+
+        # Regex that won't match any names
+        result = sut.match("[0-9]")
+        self.assertEqual(0, len(result))
+
+    def test_match_with_one_result(self):
+        word_list = VocabFile.TWO_ITEMS
+        fullname = Path(__file__).parent / word_list
+
+        sut = Vocab(
+            files=[fullname],
+            use_ste100=False,
+            use_ste100_technical_word=False,
+        )
+
+        # End of string anchor
+        result = sut.match("t$")
+        self.assertEqual(1, len(result))
+        self.assertEqual("abaft", result[0].name.lower())
