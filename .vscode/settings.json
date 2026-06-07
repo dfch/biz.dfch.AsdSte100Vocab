@@ -71,6 +71,7 @@
         "venv",
         "venvdeb",
         "webassets",
-        "wordinfo"
+        "wordinfo",
+        "zwsp"
     ]
 }
