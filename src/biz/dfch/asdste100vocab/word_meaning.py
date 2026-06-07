@@ -19,7 +19,7 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -31,6 +31,6 @@ class WordMeaning:
     """Represents the ASD-STE100 defined meaning of a word."""
 
     value: str
-    ste_example: str | None = None
-    nonste_example: str | None = None
+    ste_example: list[str] = field(default_factory=list)
+    nonste_example: list[str] = field(default_factory=list)
     note: WordNote | None = None
