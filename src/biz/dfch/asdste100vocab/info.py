@@ -16,6 +16,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 from dataclasses import dataclass
+from importlib.metadata import version, PackageNotFoundError
 
 
 @dataclass
@@ -23,7 +24,10 @@ class Info:
     """Program information."""
 
     name = "biz.dfch.AsdSte100Vocab"
-    version = "0.6.1"
+    try:
+        version = version("biz-dfch-ste100vocab")
+    except PackageNotFoundError:
+        version = "unknown"
     description = (
         f"{name}, v{version}. "
         "The ASD-STE100 (Simplified Technical English) Issue 9 vocabulary."
