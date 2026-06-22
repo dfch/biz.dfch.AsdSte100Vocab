@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "biz-dfch-ste100vocab"
-version = "0.5.1"
+version = "0.6.0"
 description = "The ASD-STE100 (Simplified Technical English) Issue 9 vocabulary."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -46,7 +46,6 @@ classifiers = [
 ]
 
 dependencies = [
-    "dacite>=1.9.2"
 ]
 
 # Install project in editable mode:
@@ -55,8 +54,12 @@ dependencies = [
 dev = [
     "twine",
     "build",
+    "dacite>=1.9.2",
     "pylint",
-    "uv"
+    "python-dotenv>=1.2.2",
+    "rich>=15.0.0",
+    "typer>=0.12",
+    "uv",
 ]
 
 [project.urls]  
@@ -64,7 +67,7 @@ Homepage = "https://github.com/dfch/biz.dfch.AsdSte100Vocab.git"
 Issues = "https://github.com/dfch/biz.dfch.AsdSte100Vocab/issues"
 
 [project.scripts]
-ste100-vocab = "biz.dfch.asdste100vocab.__main__:main"
+vocab = "biz.dfch.asdste100vocab.cli:app"
 
 [tool.black]  
 line-length = 80

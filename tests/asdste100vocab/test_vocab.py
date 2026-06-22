@@ -485,7 +485,7 @@ class TestVocab(unittest.TestCase):
     def test_read_jsonl_text(self):
 
         # pylint: disable=C0301
-        jsonl = r"""{"status":"approved","name":"A","type_":"art","meanings":[{"value":"Function word: indefinite article","ste_example":"A FUEL PUMP IS INSTALLED IN ZONE 10.","nonste_example":"","note":null}],"spellings":[],"alternatives":[],"source":"STE100:9","category":"0","ste_example":[],"nonste_example":[],"note":{"value":"","words":[],"ste_example":null,"nonste_example":null}}"""
+        jsonl = r"""{"status":"approved","name":"A","type_":"art","meanings":[{"value":"Function word: indefinite article","ste_example":["A FUEL PUMP IS INSTALLED IN ZONE 10."],"nonste_example":[],"note":null}],"spellings":[],"alternatives":[],"source":"STE100:9","category":"0","ste_example":[],"nonste_example":[],"note":{"value":"","words":[],"ste_example":null,"nonste_example":null}}"""
 
         result = Vocab.read_jsonl_text(jsonl)
 

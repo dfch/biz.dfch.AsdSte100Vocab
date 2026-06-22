@@ -1,4 +1,4 @@
-# Copyright (C) 2025-2026 Ronald Rink, d-fens GmbH, http://d-fens.ch
+# Copyright (C) 2026 Ronald Rink, d-fens GmbH, http://d-fens.ch
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published
@@ -15,22 +15,17 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-"""WordMeaning class."""
+"""``change`` update an existing vocabulary entry.
 
-from __future__ import annotations
-
-from dataclasses import dataclass, field
-from typing import TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from .word_note import WordNote
+.. note::
+    This command is a stub.  Wire up :class:`~biz.dfch.asdste100vocab.vocab.Vocab`
+    persistence and replace the ``# TODO`` block with real logic.
+"""
 
 
-@dataclass(frozen=True)
-class WordMeaning:
-    """Represents the ASD-STE100 defined meaning of a word."""
+def change() -> None:
+    """
+    Change an existing ASD-STE100 vocabulary entry.
+    """
 
-    value: str
-    ste_example: list[str] = field(default_factory=list)
-    nonste_example: list[str] = field(default_factory=list)
-    note: WordNote | None = None
+    raise NotImplementedError()
