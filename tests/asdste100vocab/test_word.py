@@ -150,11 +150,13 @@ class TestWord(unittest.TestCase):
             meanings=[
                 WordMeaning(
                     value="1. To occur, exist",
-                    ste_example="IF THERE IS CORROSION ON THE PUMP VANES, REPLACE THE PUMP.",
+                    ste_example=[
+                        "IF THERE IS CORROSION ON THE PUMP VANES, REPLACE THE PUMP."
+                    ],
                 ),
                 WordMeaning(
                     value="2. To have a property, to be equal to",
-                    ste_example="ACID SOLUTIONS ARE DANGEROUS.",
+                    ste_example=["ACID SOLUTIONS ARE DANGEROUS."],
                 ),
             ],
         )
@@ -169,20 +171,18 @@ class TestWord(unittest.TestCase):
 
         self.assertEqual(2, len(sut.meanings))
         self.assertEqual(expected.meanings[0].value, sut.meanings[0].value)
+        self.assertEqual(1, len(sut.meanings[0].ste_example))
         self.assertEqual(
-            expected.meanings[0].ste_example, sut.meanings[0].ste_example
+            expected.meanings[0].ste_example[0], sut.meanings[0].ste_example[0]
         )
-        self.assertEqual(
-            expected.meanings[0].nonste_example, sut.meanings[0].nonste_example
-        )
+        self.assertEqual(0, len(sut.meanings[0].nonste_example))
 
         self.assertEqual(expected.meanings[1].value, sut.meanings[1].value)
+        self.assertEqual(1, len(sut.meanings[1].ste_example))
         self.assertEqual(
-            expected.meanings[1].ste_example, sut.meanings[1].ste_example
+            expected.meanings[1].ste_example[0], sut.meanings[1].ste_example[0]
         )
-        self.assertEqual(
-            expected.meanings[1].nonste_example, sut.meanings[1].nonste_example
-        )
+        self.assertEqual(0, len(sut.meanings[1].nonste_example))
 
     def test_alternative(self):
 
