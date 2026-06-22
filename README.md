@@ -42,7 +42,17 @@ uv add biz-dfch-ste100vocab
 
 ## Create your own vocabulary entries
 
-When you want to create your own word entries, you install the `dev` dependencies and use this command:
+When you want to create your own word entries, you install the `dev` dependencies:
+
+```
+uv sync --extra dev
+# or
+uv pip install -e ".[dev]"
+# or
+pip install -e ".[dev]"
+```
+
+Then use this command:
 
 ```
 uv run vocab new
