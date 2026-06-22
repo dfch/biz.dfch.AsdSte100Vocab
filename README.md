@@ -9,16 +9,17 @@
 
 ## Introduction
 
-This is a Python library, that implements an [ASD-STE100 Issue 9](https://www.asd-ste100.org/) compatible dictionary, that includes the Technical Nouns (TN) and Technical Verbs (TV) from the rule R1.5 and rule R1.12. It has these properties:
+This is a Python library, that implements an [ASD-STE100 Issue 9](https://www.asd-ste100.org/) compatible dictionary, that includes the Technical Nouns (TN) and Technical Verbs (TV) from the rule R1.5 and rule R1.12. A [`word`](./src/biz/dfch/asdste100vocab/word.py) has these properties:
 
 * `name`, the name of a word item
-* `status`, is this word `APPROVED` or `REJECTED`?
-* `source`, where does this word come from?
-* `type_`, the word type (similar to "part of speech")
+* [`status`](./src/biz/dfch/asdste100vocab/word_status.py), is this word `APPROVED` or `REJECTED`?
+* [`source`](./src/biz/dfch/asdste100vocab/word_source.py), where does this word come from?
+* [`type_`](./src/biz/dfch/asdste100vocab/word_type.py), the word type (similar to "part of speech")
+* [`category`](./src/biz/dfch/asdste100vocab/word_category.py), the TN or TV category or "default"
 * `spellings`, all correct spellings of the `Word` item (this is not a "lemma")
-* `meanings`, contains one or more meanings for an `APPROVED` word item
-* `alternatives`, contains one or more alternatives for a `REJECTED` word item
-* `note`, an optional note for `Word` item
+* [`meanings`](./src/biz/dfch/asdste100vocab/word_meaning.py), contains one or more meanings for an `APPROVED` word item
+* `alternatives`, a `list` that contains one or more alternatives for a `REJECTED` word item
+* [`note`](./src/biz/dfch/asdste100vocab/word_note.py), an optional note for `Word` item
 * `ste_example`, an example that shows how to use the `Word` item correctly
 * `nonste_example`, an example that shows an incorrect use of the `Word` item
 
