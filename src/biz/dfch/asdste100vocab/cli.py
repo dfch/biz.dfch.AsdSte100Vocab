@@ -30,7 +30,7 @@ The CLI can be launched from any working directory:
 
 * The ``.env`` file is located by walking upward from this module and
   (if not found) from the current working directory; an explicit path
-  can be supplied with the global ``--env-file`` option.
+  can be supplied with the global ``--env`` option.
 * All file/directory arguments are resolved relative to the user's
   current working directory, which is the standard convention for a
   shell tool.
@@ -92,7 +92,7 @@ def _callback(
     env_file: Annotated[
         Optional[Path],
         typer.Option(
-            "--env-file",
+            "--env",
             help=(
                 "Path to a .env file to load.  When omitted, the .env "
                 "closest to this module (and then to the current "
@@ -101,13 +101,13 @@ def _callback(
         ),
     ] = None,
 ) -> None:
-    # We use ``callback`` to register the global ``--env-file`` option
+    # We use ``callback`` to register the global ``--env`` option
     # and to make sure that Typer continues to show sub-commands when
     # there is only one sub-command registered.
     _ = ctx
     if env_file is not None:
-        assert env_file.exists(), f"--env-file must exist: '{env_file}'."
-        assert env_file.is_file(), f"--env-file is not a file: '{env_file}'."
+        assert env_file.exists(), f"--env must exist: '{env_file}'."
+        assert env_file.is_file(), f"--env is not a file: '{env_file}'."
         # ``override=True`` lets a user-supplied .env override values
         # that may have been loaded at import time.
         load_dotenv(env_file, override=True)

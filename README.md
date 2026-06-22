@@ -9,16 +9,17 @@
 
 ## Introduction
 
-This is a Python library, that implements an [ASD-STE100 Issue 9](https://www.asd-ste100.org/) compatible dictionary, that includes the Technical Nouns (TN) and Technical Verbs (TV) from the rule R1.5 and rule R1.12. It has these properties:
+This is a Python library, that implements an [ASD-STE100 Issue 9](https://www.asd-ste100.org/) compatible dictionary, that includes the Technical Nouns (TN) and Technical Verbs (TV) from the rule R1.5 and rule R1.12. A [`word`](./src/biz/dfch/asdste100vocab/word.py) has these properties:
 
 * `name`, the name of a word item
-* `status`, is this word `APPROVED` or `REJECTED`?
-* `source`, where does this word come from?
-* `type_`, the word type (similar to "part of speech")
+* [`status`](./src/biz/dfch/asdste100vocab/word_status.py), is this word `APPROVED` or `REJECTED`?
+* [`source`](./src/biz/dfch/asdste100vocab/word_source.py), where does this word come from?
+* [`type_`](./src/biz/dfch/asdste100vocab/word_type.py), the word type (similar to "part of speech")
+* [`category`](./src/biz/dfch/asdste100vocab/word_category.py), the TN or TV category or "default"
 * `spellings`, all correct spellings of the `Word` item (this is not a "lemma")
-* `meanings`, contains one or more meanings for an `APPROVED` word item
-* `alternatives`, contains one or more alternatives for a `REJECTED` word item
-* `note`, an optional note for `Word` item
+* [`meanings`](./src/biz/dfch/asdste100vocab/word_meaning.py), contains one or more meanings for an `APPROVED` word item
+* `alternatives`, a `list` that contains one or more alternatives for a `REJECTED` word item
+* [`note`](./src/biz/dfch/asdste100vocab/word_note.py), an optional note for `Word` item
 * `ste_example`, an example that shows how to use the `Word` item correctly
 * `nonste_example`, an example that shows an incorrect use of the `Word` item
 
@@ -37,6 +38,35 @@ Or install with `uv`:
 ```
 uv add biz-dfch-ste100vocab
 ```
+
+## Create your own vocabulary entries
+
+When you want to create your own word entries, you install the `dev` dependencies and use this command:
+
+```
+uv run vocab new
+```
+
+<img width="3804" height="1536" alt="image" src="https://github.com/user-attachments/assets/9f14c8eb-5d15-40f0-82f3-94fdebb68a14" />
+
+You can use an `.env` file (or environment variables, see `--help`) to define recurring parameters (see example below) and you can use `--interactive` (or `-i`) for an interactive wizard. Each time you start the program, it will create a new `JSONL` entry.
+
+The specified file must exist. The program will only **append** to an existing file, but not create a new file.
+
+### Example `.env` file
+
+```
+cat .env
+```
+
+```
+VOCAB_STATUS=approved
+VOCAB_SOURCE=ARBITRARY-SOURCE
+VOCAB_TYPE=TN
+VOCAB_CATEGORY=TN21
+VOCAB_FILE=./vocab.jsonl
+```
+
 
 ## License
 
