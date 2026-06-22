@@ -15,18 +15,8 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-"""Shared ``Annotated`` parameter definitions for CLI sub-commands.
-
-Each name defined here is a ready-to-use type alias that can be dropped
-directly into a Typer command signature::
-
-    from .args import ArgName, OptStatus, OptDryRun
-
-    def new(
-        name: ArgName,
-        status: OptStatus = WordStatus.UNKNOWN,
-        dry_run: OptDryRun = False,
-    ) -> None: ...
+"""
+Shared ``Annotated`` parameter definitions for CLI sub-commands.
 """
 
 from pathlib import Path
@@ -38,16 +28,12 @@ from ..word_category import WordCategory
 from ..word_status import WordStatus
 from ..word_type import WordType
 
-# ---------------------------------------------------------------------------
-# Named option shared by all three commands
-# ---------------------------------------------------------------------------
-
 NameOpt = Annotated[
     Optional[str],
     typer.Option(
         "--word",
         "-w",
-        help="The name of the wordto add.",
+        help="The name of the word to add.",
     ),
 ]
 
@@ -151,14 +137,6 @@ YesNoOpt = Annotated[
         "--yes/--no",
         "-y/-n",
         help="Confirm (--yes) or cancel (--no) the operation.",
-    ),
-]
-
-DryRunOpt = Annotated[
-    bool,
-    typer.Option(
-        "--dry-run",
-        help="Print what would happen without persisting anything.",
     ),
 ]
 
