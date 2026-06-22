@@ -35,15 +35,13 @@ wheels = [
 
 [[package]]
 name = "biz-dfch-ste100vocab"
-version = "0.5.1"
+version = "0.6.1"
 source = { editable = "." }
-dependencies = [
-    { name = "dacite" },
-]
 
 [package.optional-dependencies]
 dev = [
     { name = "build" },
+    { name = "dacite" },
     { name = "pylint" },
     { name = "python-dotenv" },
     { name = "rich" },
@@ -55,7 +53,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "build", marker = "extra == 'dev'" },
-    { name = "dacite", specifier = ">=1.9.2" },
+    { name = "dacite", marker = "extra == 'dev'", specifier = ">=1.9.2" },
     { name = "pylint", marker = "extra == 'dev'" },
     { name = "python-dotenv", marker = "extra == 'dev'", specifier = ">=1.2.2" },
     { name = "rich", marker = "extra == 'dev'", specifier = ">=15.0.0" },
