@@ -23,7 +23,7 @@ class Info:
     """Program information."""
 
     name = "biz.dfch.AsdSte100Vocab"
-    version = "0.6.0"
+    version = "0.6.1"
     description = (
         f"{name}, v{version}. "
         "The ASD-STE100 (Simplified Technical English) Issue 9 vocabulary."
