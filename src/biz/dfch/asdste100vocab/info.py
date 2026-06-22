@@ -16,7 +16,8 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 from dataclasses import dataclass
-from importlib.metadata import version, PackageNotFoundError
+from importlib.metadata import PackageNotFoundError
+from importlib.metadata import version as metadata_version
 
 
 @dataclass
@@ -25,7 +26,7 @@ class Info:
 
     name = "biz.dfch.AsdSte100Vocab"
     try:
-        version = version("biz-dfch-ste100vocab")
+        version = metadata_version("biz-dfch-ste100vocab")
     except PackageNotFoundError:
         version = "unknown"
     description = (

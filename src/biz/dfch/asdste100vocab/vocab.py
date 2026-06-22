@@ -217,7 +217,7 @@ class Vocab:
         Search for words in the vocabulary by name.
 
         The search is case-insensitive and returns all words whose name
-        contains the specified string.
+        exactly matches the specified string.
 
         Parameters
         ----------
@@ -234,8 +234,7 @@ class Vocab:
 
         search_term = value.lower()
         return [
-            item for item in self._items
-            if search_term == item.name.lower()
+            item for item in self._items if search_term == item.name.lower()
         ]
 
     def match(self, pattern: str) -> list[Word]:

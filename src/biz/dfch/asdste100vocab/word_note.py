@@ -26,12 +26,11 @@ if TYPE_CHECKING:
     from .word import Word
 
 
-@dataclass
+@dataclass(frozen=True)
 class WordNote:
     """Represents the ASD-STE100 note in the dictionary."""
 
     value: str | None = None
-    # word: Word | None = None  # forward reference
     words: list[Word] = field(default_factory=list)  # forward reference
     ste_example: str | None = None
     nonste_example: str | None = None

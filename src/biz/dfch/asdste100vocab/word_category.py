@@ -104,7 +104,7 @@ class WordCategory(StrEnum):
         try:
             regex = re.compile(pattern, re.IGNORECASE)
         except re.error as ex:
-            print("Invalid regex: '%s'", ex)
+            print(f"Invalid regex: '{ex}'.")
 
             return []
 
