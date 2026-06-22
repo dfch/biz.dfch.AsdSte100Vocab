@@ -38,6 +38,35 @@ Or install with `uv`:
 uv add biz-dfch-ste100vocab
 ```
 
+## Create your own vocabulary entries
+
+When you want to create your own word entries, you install the `dev` dependencies and use this command:
+
+```
+uv run vocab new
+```
+
+<img width="3804" height="1536" alt="image" src="https://github.com/user-attachments/assets/9f14c8eb-5d15-40f0-82f3-94fdebb68a14" />
+
+You can use an `.env` file (or environment variables, see `--help`) to define recurring parameters (see example below) and you can use `--interactive` (or `-i`) for an interactive wizard. Each time you start the program, it will create a new `JSONL` entry.
+
+The specified file must exist. The program will only **append** to an existing file, but not create a new file.
+
+### Example `.env` file
+
+```
+cat .env
+```
+
+```
+VOCAB_STATUS=approved
+VOCAB_SOURCE=ARBITRARY-SOURCE
+VOCAB_TYPE=TN
+VOCAB_CATEGORY=TN21
+VOCAB_FILE=./vocab.jsonl
+```
+
+
 ## License
 
 This library is licensed under the [GNU Affero General Public License](https://www.gnu.org/licenses/agpl-3.0). See [LICENSE](./LICENSE) for more information.
