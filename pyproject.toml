@@ -46,6 +46,8 @@ classifiers = [
 ]
 
 dependencies = [
+    "dacite>=1.9.2",
+    "dotenv>=0.9.9",
 ]
 
 # Install project in editable mode:
@@ -54,7 +56,6 @@ dependencies = [
 dev = [
     "twine",
     "build",
-    "dacite>=1.9.2",
     "pylint",
     "python-dotenv>=1.2.2",
     "rich>=15.0.0",
