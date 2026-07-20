@@ -41,6 +41,9 @@ from .builtin_vocab import BuiltInVocab
 class Vocab:
     """Vocabulary class."""
 
+    DIFFLIB_N_DEFAULT: int = 5
+    DIFFLIB_CUTOFF_DEFAULT: float = 0.6
+
     _configuration: Config = Config(
         strict=True,
         type_hooks={
@@ -258,10 +261,16 @@ class Vocab:
 
         assert isinstance(pattern, str), type(pattern)
 
-        regex = re.compile(pattern)
+        regex = re.compile(pattern, re.IGNORECASE)
         return [item for item in self._items if regex.search(item.name)]
 
-    def similar(self, value: str, *, n: int = 3, cutoff: float = 0.7) -> list[Word]:
+    def similar(
+        self,
+        value: str,
+        *,
+        n: int = DIFFLIB_N_DEFAULT,
+        cutoff: float = DIFFLIB_CUTOFF_DEFAULT,
+    ) -> list[Word]:
         """
         Search for words in the vocabulary similar to a given string using
         :func:`difflib.get_close_matches`.
@@ -271,10 +280,10 @@ class Vocab:
         value:
             The string to search for within the word names.
         n:
-            Maximum number of close matches to return (default ``3``).
+            Maximum number of close matches to return (default ``DIFFLIB_N_DEFAULT``).
         cutoff:
             Similarity threshold in the range ``[0, 1]``. Candidates scoring
-            below this value are excluded (default ``0.7``).
+            below this value are excluded (default ``DIFFLIB_CUTOFF_DEFAULT`).
 
         Returns
         -------
@@ -289,6 +298,49 @@ class Vocab:
         names = [item.name for item in self._items]
         matches = difflib.get_close_matches(value, names, n=n, cutoff=cutoff)
         return [item for item in self._items if item.name in matches]
+
+    def examine(
+        self, value: str, *, cutoff: float = DIFFLIB_CUTOFF_DEFAULT
+    ) -> list[Word]:
+        """
+        Search for words in the vocabulary using both fuzzy matching and
+        partial/substring matching.
+
+        Combines the results of :meth:`similar` (fuzzy, via
+        :func:`difflib.get_close_matches`) and :meth:`match` (regex
+        substring search), deduplicates, and returns the merged list
+        sorted alphabetically.
+
+        Parameters
+        ----------
+        value:
+            The string used as-is for both fuzzy and partial matching.
+        cutoff:
+            Similarity threshold passed to :meth:`similar`, in the range
+            ``[0, 1]`` (default ``DIFFLIB_CUTOFF_DEFAULT``).
+
+        Returns
+        -------
+        list[Word]
+            A deduplicated, alphabetically sorted list of matching `Word`
+            objects.
+        """
+
+        assert isinstance(value, str), type(value)
+        assert isinstance(cutoff, float) and 0.0 <= cutoff <= 1.0, cutoff
+
+        fuzzy = self.similar(value, cutoff=cutoff)
+        partial = self.match(value)
+
+        seen: set[int] = set()
+        merged: list[Word] = []
+        for word in fuzzy + partial:
+            if id(word) not in seen:
+                seen.add(id(word))
+                merged.append(word)
+
+        merged.sort(key=self._default_sort_key)
+        return merged
 
     def filter(self, predicate: Callable[[Word], bool]) -> list[Word]:
         """

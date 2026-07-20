@@ -20,9 +20,17 @@
 from .new import new
 from .change import change
 from .remove import remove
+from .similar import similar
+from .examine import examine
+from .match import match
+from .find import find
 
 __all__ = [
     "new",
     "change",
     "remove",
+    "similar",
+    "examine",
+    "match",
+    "find",
 ]

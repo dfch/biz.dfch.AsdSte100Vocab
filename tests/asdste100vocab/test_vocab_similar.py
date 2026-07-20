@@ -116,7 +116,7 @@ class TestVocabSimilar(unittest.TestCase):
     def test_similar_n_default_is_three(self):
         sut = Vocab(use_ste100=True, use_ste100_technical_word=True)
 
-        result = sut.similar("instal", cutoff=0.5)
+        result = sut.similar("instal", n=3, cutoff=0.5)
 
         self.assertLessEqual(len(result), 3)
 
