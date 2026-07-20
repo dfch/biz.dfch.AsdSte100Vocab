@@ -19,6 +19,7 @@
 
 from __future__ import annotations
 import dataclasses
+import difflib
 import enum
 import json
 from pathlib import Path
@@ -94,7 +95,6 @@ class Vocab:
 
         self._files.extend(files)
         for file in self._files:
-
             assert isinstance(file, Path), type(file)
             if not file.exists():
                 raise FileNotFoundError(file)
@@ -184,6 +184,12 @@ class Vocab:
 
         self._items.remove(word)
 
+    def clear(self) -> Vocab:
+        """Remove all `Word` items from the vocabulary."""
+
+        self._items.clear()
+        return self
+
     def replace(self, existing: Word, replacement: Word) -> None:
         """Replace an existing `Word` item with a new `Word` item.
 
@@ -233,9 +239,7 @@ class Vocab:
         assert isinstance(value, str), type(value)
 
         search_term = value.lower()
-        return [
-            item for item in self._items if search_term == item.name.lower()
-        ]
+        return [item for item in self._items if search_term == item.name.lower()]
 
     def match(self, pattern: str) -> list[Word]:
         """
@@ -256,6 +260,35 @@ class Vocab:
 
         regex = re.compile(pattern)
         return [item for item in self._items if regex.search(item.name)]
+
+    def similar(self, value: str, *, n: int = 3, cutoff: float = 0.7) -> list[Word]:
+        """
+        Search for words in the vocabulary similar to a given string using
+        :func:`difflib.get_close_matches`.
+
+        Parameters
+        ----------
+        value:
+            The string to search for within the word names.
+        n:
+            Maximum number of close matches to return (default ``3``).
+        cutoff:
+            Similarity threshold in the range ``[0, 1]``. Candidates scoring
+            below this value are excluded (default ``0.7``).
+
+        Returns
+        -------
+        list[Word]
+            A list of `Word` items whose names are similar to *value*.
+        """
+
+        assert isinstance(value, str), type(value)
+        assert isinstance(n, int) and n > 0, n
+        assert isinstance(cutoff, float) and 0.0 <= cutoff <= 1.0, cutoff
+
+        names = [item.name for item in self._items]
+        matches = difflib.get_close_matches(value, names, n=n, cutoff=cutoff)
+        return [item for item in self._items if item.name in matches]
 
     def filter(self, predicate: Callable[[Word], bool]) -> list[Word]:
         """
@@ -287,9 +320,7 @@ class Vocab:
 
         return word.name.lower()
 
-    def sort(
-        self, *, key: Callable[[Word], str] | None = None, reverse=False
-    ) -> None:
+    def sort(self, *, key: Callable[[Word], str] | None = None, reverse=False) -> None:
         """
         Sort the `Word` items in the vocabulary.
 
