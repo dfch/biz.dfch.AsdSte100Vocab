@@ -4,7 +4,8 @@
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPLv3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 ![Python](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13-blue.svg)
 [![Pylint and unittest](https://github.com/dfch/biz.dfch.AsdSte100Vocab/actions/workflows/ci.yml/badge.svg)](https://github.com/dfch/biz.dfch.AsdSte100Vocab/actions/workflows/ci.yml)
-[![PyPI version](https://img.shields.io/pypi/v/biz-dfch-ste100vocab.svg)](https://pypi.org/project/biz-dfch-ste100vocab/)
+[![TestPyPI version](https://img.shields.io/badge/dynamic/json?url=https://test.pypi.org/pypi/biz-dfch-ste100vocab/json&label=TestPyPI&query=$.info.version&color=orange)](https://test.pypi.org/project/biz-dfch-ste100vocab/)
+[![PyPI version](https://img.shields.io/badge/dynamic/json?url=https://www.pypi.org/pypi/biz-dfch-ste100vocab/json&label=PyPI&query=$.info.version&color=blue)](https://www.pypi.org/project/biz-dfch-ste100vocab/)
 [![PyPI downloads](https://img.shields.io/pypi/dm/biz-dfch-ste100vocab.svg)](https://pypistats.org/packages/biz-dfch-ste100vocab)
 
 ## Introduction
@@ -41,7 +42,17 @@ uv add biz-dfch-ste100vocab
 
 ## Create your own vocabulary entries
 
-When you want to create your own word entries, you install the `dev` dependencies and use this command:
+When you want to create your own word entries, you install the `dev` dependencies:
+
+```
+uv sync --extra dev
+# or
+uv pip install -e ".[dev]"
+# or
+pip install -e ".[dev]"
+```
+
+Then use this command:
 
 ```
 uv run vocab new

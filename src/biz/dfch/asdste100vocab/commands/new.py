@@ -15,7 +15,7 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-"""``new`` create a new ASD-STE100 vocabulary entry."""
+"""``new`` create a new vocabulary entry."""
 
 from dataclasses import replace
 from pathlib import Path
@@ -348,7 +348,7 @@ def new(
     values.
     """
 
-    assert isinstance(name, str), type(str)
+    assert isinstance(name, str), name
     assert name.strip()
 
     assert (
@@ -367,13 +367,17 @@ def new(
         )
 
     if is_interactive or status is None or status.strip() == "":
-        status = _prompt_choice("WordStatus", WordStatus, status)
+        status = _prompt_choice(
+            "WordStatus", WordStatus, status or WordStatus.UNKNOWN
+        )
     if is_interactive or type_ is None or type_.strip() == "":
-        type_ = _prompt_choice("WordType", WordType, type_)
+        type_ = _prompt_choice("WordType", WordType, type_ or WordType.UNKNOWN)
     if is_interactive or category is None or category.strip() == "":
-        category = _prompt_choice("WordCategory", WordCategory, category)
+        category = _prompt_choice(
+            "WordCategory", WordCategory, category or WordCategory.DEFAULT
+        )
     if is_interactive or source is None or source.strip() == "":
-        source = _prompt_source(default=str(source))
+        source = _prompt_source(default=source or "")
 
     word_meanings: list[WordMeaning] = []
     word_alternatives: list[Word] = []

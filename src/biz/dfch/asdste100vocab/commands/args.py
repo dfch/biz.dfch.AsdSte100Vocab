@@ -15,18 +15,8 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-"""Shared ``Annotated`` parameter definitions for CLI sub-commands.
-
-Each name defined here is a ready-to-use type alias that can be dropped
-directly into a Typer command signature::
-
-    from .args import ArgName, OptStatus, OptDryRun
-
-    def new(
-        name: ArgName,
-        status: OptStatus = WordStatus.UNKNOWN,
-        dry_run: OptDryRun = False,
-    ) -> None: ...
+"""
+Shared ``Annotated`` parameter definitions for CLI sub-commands.
 """
 
 from pathlib import Path
@@ -38,16 +28,12 @@ from ..word_category import WordCategory
 from ..word_status import WordStatus
 from ..word_type import WordType
 
-# ---------------------------------------------------------------------------
-# Named option shared by all three commands
-# ---------------------------------------------------------------------------
-
 NameOpt = Annotated[
     Optional[str],
     typer.Option(
         "--word",
         "-w",
-        help="The name of the wordto add.",
+        help="The name of the word to add.",
     ),
 ]
 
@@ -154,19 +140,74 @@ YesNoOpt = Annotated[
     ),
 ]
 
-DryRunOpt = Annotated[
-    bool,
-    typer.Option(
-        "--dry-run",
-        help="Print what would happen without persisting anything.",
-    ),
-]
-
 InteractiveOpt = Annotated[
     bool,
     typer.Option(
         "--interactive",
         "-i",
         help="Start the interactive procedure and ask for parameters.",
+    ),
+]
+
+UseSte100Opt = Annotated[
+    bool,
+    typer.Option(
+        "--ste100/--no-ste100",
+        help="Include (--ste100) or exclude (--no-ste100) the built-in STE100 base vocabulary.",
+    ),
+]
+
+UseSte100TechnicalWordOpt = Annotated[
+    bool,
+    typer.Option(
+        "--technical/--no-technical",
+        help="Include (--technical) or exclude (--no-technical) the STE100 technical words (TN/TV).",
+    ),
+]
+
+PhraseArg = Annotated[
+    str,
+    typer.Argument(
+        help="The phrase or word to search for similar matches.",
+    ),
+]
+
+SimilarNOpt = Annotated[
+    int,
+    typer.Option(
+        "--count",
+        "-n",
+        help="Maximum number of similar matches to return.",
+    ),
+]
+
+SimilarCutoffOpt = Annotated[
+    float,
+    typer.Option(
+        "--cutoff",
+        "-c",
+        help=(
+            "Similarity threshold in the range [0.0, 1.0]."
+            " Candidates scoring below this value are excluded."
+        ),
+    ),
+]
+
+VocabFiles = Annotated[
+    Optional[List[Path]],
+    typer.Option(
+        "--file",
+        "-f",
+        envvar="VOCAB_FILE",
+        exists=True,
+        file_okay=True,
+        dir_okay=False,
+        readable=True,
+        resolve_path=True,
+        help=(
+            "Path to an existing JSONL vocabulary file."
+            " Repeat for multiple files,"
+            " e.g. ``--vocabulary a.jsonl --vocabulary b.jsonl``."
+        ),
     ),
 ]

@@ -18,9 +18,12 @@
 """``change`` update an existing vocabulary entry.
 
 .. note::
-    This command is a stub.  Wire up :class:`~biz.dfch.asdste100vocab.vocab.Vocab`
+    This command is a stub.
+    Wire up :class:`~biz.dfch.asdste100vocab.Vocab`
     persistence and replace the ``# TODO`` block with real logic.
 """
+
+import typer
 
 
 def change() -> None:
@@ -28,4 +31,10 @@ def change() -> None:
     Change an existing ASD-STE100 vocabulary entry.
     """
 
-    raise NotImplementedError()
+    typer.echo(
+        typer.style(
+            "The 'change' command is not yet implemented.",
+            fg=typer.colors.YELLOW,
+        )
+    )
+    raise typer.Exit(code=1)

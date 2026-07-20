@@ -29,3 +29,4 @@ class VocabFile(StrEnum):
     THREE_ITEMS = "test_vocab_word_list3.jsonl"
     COMPLETE = "test_word_complete.jsonl"
     SAME_WORD_TWICE = "test_vocab_word_twice.jsonl"
+    EXCEPT = "test_vocab_convert_except.jsonl"

@@ -45,6 +45,10 @@ import typer
 from .commands import new
 from .commands import change
 from .commands import remove
+from .commands import similar
+from .commands import examine
+from .commands import match
+from .commands import find
 from .info import Info
 
 # ---------------------------------------------------------------------------
@@ -116,6 +120,10 @@ def _callback(
 app.command(epilog=Info.epilog)(new)
 app.command(epilog=Info.epilog)(change)
 app.command(epilog=Info.epilog)(remove)
+app.command(epilog=Info.epilog)(similar)
+app.command(epilog=Info.epilog)(examine)
+app.command(epilog=Info.epilog)(match)
+app.command(epilog=Info.epilog)(find)
 
 
 if __name__ == "__main__":

@@ -19,6 +19,7 @@
 
 from __future__ import annotations
 import dataclasses
+import difflib
 import enum
 import json
 from pathlib import Path
@@ -39,6 +40,9 @@ from .builtin_vocab import BuiltInVocab
 
 class Vocab:
     """Vocabulary class."""
+
+    DIFFLIB_N_DEFAULT: int = 5
+    DIFFLIB_CUTOFF_DEFAULT: float = 0.6
 
     _configuration: Config = Config(
         strict=True,
@@ -94,7 +98,6 @@ class Vocab:
 
         self._files.extend(files)
         for file in self._files:
-
             assert isinstance(file, Path), type(file)
             if not file.exists():
                 raise FileNotFoundError(file)
@@ -184,6 +187,12 @@ class Vocab:
 
         self._items.remove(word)
 
+    def clear(self) -> Vocab:
+        """Remove all `Word` items from the vocabulary."""
+
+        self._items.clear()
+        return self
+
     def replace(self, existing: Word, replacement: Word) -> None:
         """Replace an existing `Word` item with a new `Word` item.
 
@@ -217,7 +226,7 @@ class Vocab:
         Search for words in the vocabulary by name.
 
         The search is case-insensitive and returns all words whose name
-        contains the specified string.
+        exactly matches the specified string.
 
         Parameters
         ----------
@@ -233,10 +242,7 @@ class Vocab:
         assert isinstance(value, str), type(value)
 
         search_term = value.lower()
-        return [
-            item for item in self._items
-            if search_term == item.name.lower()
-        ]
+        return [item for item in self._items if search_term == item.name.lower()]
 
     def match(self, pattern: str) -> list[Word]:
         """
@@ -255,8 +261,86 @@ class Vocab:
 
         assert isinstance(pattern, str), type(pattern)
 
-        regex = re.compile(pattern)
+        regex = re.compile(pattern, re.IGNORECASE)
         return [item for item in self._items if regex.search(item.name)]
+
+    def similar(
+        self,
+        value: str,
+        *,
+        n: int = DIFFLIB_N_DEFAULT,
+        cutoff: float = DIFFLIB_CUTOFF_DEFAULT,
+    ) -> list[Word]:
+        """
+        Search for words in the vocabulary similar to a given string using
+        :func:`difflib.get_close_matches`.
+
+        Parameters
+        ----------
+        value:
+            The string to search for within the word names.
+        n:
+            Maximum number of close matches to return (default ``DIFFLIB_N_DEFAULT``).
+        cutoff:
+            Similarity threshold in the range ``[0, 1]``. Candidates scoring
+            below this value are excluded (default ``DIFFLIB_CUTOFF_DEFAULT`).
+
+        Returns
+        -------
+        list[Word]
+            A list of `Word` items whose names are similar to *value*.
+        """
+
+        assert isinstance(value, str), type(value)
+        assert isinstance(n, int) and n > 0, n
+        assert isinstance(cutoff, float) and 0.0 <= cutoff <= 1.0, cutoff
+
+        names = [item.name for item in self._items]
+        matches = difflib.get_close_matches(value, names, n=n, cutoff=cutoff)
+        return [item for item in self._items if item.name in matches]
+
+    def examine(
+        self, value: str, *, cutoff: float = DIFFLIB_CUTOFF_DEFAULT
+    ) -> list[Word]:
+        """
+        Search for words in the vocabulary using both fuzzy matching and
+        partial/substring matching.
+
+        Combines the results of :meth:`similar` (fuzzy, via
+        :func:`difflib.get_close_matches`) and :meth:`match` (regex
+        substring search), deduplicates, and returns the merged list
+        sorted alphabetically.
+
+        Parameters
+        ----------
+        value:
+            The string used as-is for both fuzzy and partial matching.
+        cutoff:
+            Similarity threshold passed to :meth:`similar`, in the range
+            ``[0, 1]`` (default ``DIFFLIB_CUTOFF_DEFAULT``).
+
+        Returns
+        -------
+        list[Word]
+            A deduplicated, alphabetically sorted list of matching `Word`
+            objects.
+        """
+
+        assert isinstance(value, str), type(value)
+        assert isinstance(cutoff, float) and 0.0 <= cutoff <= 1.0, cutoff
+
+        fuzzy = self.similar(value, cutoff=cutoff)
+        partial = self.match(value)
+
+        seen: set[int] = set()
+        merged: list[Word] = []
+        for word in fuzzy + partial:
+            if id(word) not in seen:
+                seen.add(id(word))
+                merged.append(word)
+
+        merged.sort(key=self._default_sort_key)
+        return merged
 
     def filter(self, predicate: Callable[[Word], bool]) -> list[Word]:
         """
@@ -288,9 +372,7 @@ class Vocab:
 
         return word.name.lower()
 
-    def sort(
-        self, *, key: Callable[[Word], str] | None = None, reverse=False
-    ) -> None:
+    def sort(self, *, key: Callable[[Word], str] | None = None, reverse=False) -> None:
         """
         Sort the `Word` items in the vocabulary.
 
@@ -324,6 +406,24 @@ class Vocab:
         result = _convert(raw)
         assert isinstance(result, dict)
         return result
+
+    def as_dict(self) -> list[dict]:
+        """
+        Serialise the vocabulary to a list of dictionaries.
+
+        Each element in the returned list is a plain :class:`dict`
+        representing one `Word`, with all enum values resolved to their
+        string representations. The result is suitable for use with
+        third-party libraries that expect plain mappings (e.g. pandas,
+        rich, REST serialisers).
+
+        Returns
+        -------
+        list[dict]
+            One dict per `Word`.
+        """
+
+        return [Vocab._word_to_dict(word) for word in self._items]
 
     def write_jsonl_text(
         self,

@@ -29,7 +29,7 @@ from src.biz.dfch.asdste100vocab.word_status import WordStatus
 
 class TestWordMeaning(unittest.TestCase):
 
-    def test_meaning(self) -> None:
+    def change_me_test_convert_meaning_examples(self) -> None:
         """Temporary test that creates an updated word file."""
 
         sut = Vocab(
