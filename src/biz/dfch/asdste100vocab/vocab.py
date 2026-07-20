@@ -407,6 +407,24 @@ class Vocab:
         assert isinstance(result, dict)
         return result
 
+    def as_dict(self) -> list[dict]:
+        """
+        Serialise the vocabulary to a list of dictionaries.
+
+        Each element in the returned list is a plain :class:`dict`
+        representing one `Word`, with all enum values resolved to their
+        string representations. The result is suitable for use with
+        third-party libraries that expect plain mappings (e.g. pandas,
+        rich, REST serialisers).
+
+        Returns
+        -------
+        list[dict]
+            One dict per `Word`.
+        """
+
+        return [Vocab._word_to_dict(word) for word in self._items]
+
     def write_jsonl_text(
         self,
     ) -> list[str]:
