@@ -178,9 +178,7 @@ def _collect_meanings(
     if meanings is None:
         meanings = []
     for m in meanings:
-        word_meanings.append(
-            WordMeaning(value=m, ste_example=[], nonste_example=[])
-        )
+        word_meanings.append(WordMeaning(value=m, ste_example=[], nonste_example=[]))
 
     if is_interactive:
         # Allow the user to add meanings one by one until they stop.
@@ -192,17 +190,13 @@ def _collect_meanings(
             ).strip()
             if not raw:
                 break
-            word_meanings.append(
-                WordMeaning(value=raw, ste_example=[], nonste_example=[])
-            )
+            word_meanings.append(WordMeaning(value=raw, ste_example=[], nonste_example=[]))
 
         # Collect the examples of all meanings.
         for meaning in word_meanings:
             typer.echo(f"WordMeaning: '{meaning.value}'")
 
-            ste = typer.prompt(
-                "  STE example", default="", type=str, show_default=False
-            ).strip()
+            ste = typer.prompt("  STE example", default="", type=str, show_default=False).strip()
             if ste:
                 meaning.ste_example.append(ste)
 
@@ -215,10 +209,7 @@ def _collect_meanings(
             if nonste:
                 meaning.nonste_example.append(nonste)
 
-    assert word_meanings, (
-        f"A word with status '{WordStatus.APPROVED.name}' "
-        "must have at least one meaning."
-    )
+    assert word_meanings, f"A word with status '{WordStatus.APPROVED.name}' must have at least one meaning."
 
     return word_meanings
 
@@ -242,10 +233,7 @@ def _collect_alternatives(
     list[Word]
         The collected alternative words (may be empty).
     """
-    assert not meanings, (
-        f"A word with status '{WordStatus.REJECTED.name}' "
-        "must not have meanings."
-    )
+    assert not meanings, f"A word with status '{WordStatus.REJECTED.name}' must not have meanings."
 
     word_alternatives: list[Word] = []
 
@@ -362,20 +350,14 @@ def new(
         assert isinstance(file, Path), type(file)
         assert file.exists(), f"File '{file.name}' must exist."
         assert file.is_file(), f"File '{file.name}' must be a file."
-        vocab = Vocab(
-            use_ste100=False, use_ste100_technical_word=False, files=[file]
-        )
+        vocab = Vocab(use_ste100=False, use_ste100_technical_word=False, files=[file])
 
     if is_interactive or status is None or status.strip() == "":
-        status = _prompt_choice(
-            "WordStatus", WordStatus, status or WordStatus.UNKNOWN
-        )
+        status = _prompt_choice("WordStatus", WordStatus, status or WordStatus.UNKNOWN)
     if is_interactive or type_ is None or type_.strip() == "":
         type_ = _prompt_choice("WordType", WordType, type_ or WordType.UNKNOWN)
     if is_interactive or category is None or category.strip() == "":
-        category = _prompt_choice(
-            "WordCategory", WordCategory, category or WordCategory.DEFAULT
-        )
+        category = _prompt_choice("WordCategory", WordCategory, category or WordCategory.DEFAULT)
     if is_interactive or source is None or source.strip() == "":
         source = _prompt_source(default=source or "")
 
@@ -428,10 +410,7 @@ def new(
         table.add_row("meanings", "\n".join(m.value for m in word.meanings))
     elif status == WordStatus.REJECTED:
         alt_summary = (
-            "\n".join(
-                f"{a.name}  STE: {a.ste_example}  non-STE: {a.nonste_example}"
-                for a in word.alternatives
-            )
+            "\n".join(f"{a.name}  STE: {a.ste_example}  non-STE: {a.nonste_example}" for a in word.alternatives)
             or "(none)"
         )
         table.add_row("alternatives", alt_summary)

@@ -84,8 +84,7 @@ MeaningOpt = Annotated[
         "--meaning",
         "-m",
         help=(
-            "Definition of the word. Repeat for multiple meanings,"
-            " e.g. ``--meaning 'def one' --meaning 'def two'``."
+            "Definition of the word. Repeat for multiple meanings, e.g. ``--meaning 'def one' --meaning 'def two'``."
         ),
     ),
 ]
@@ -124,10 +123,7 @@ VocabFile = Annotated[
         writable=True,
         readable=True,
         resolve_path=True,
-        help=(
-            "Path to an existing JSONL vocabulary file."
-            " The `word` is added to this file."
-        ),
+        help=("Path to an existing JSONL vocabulary file. The `word` is added to this file."),
     ),
 ]
 
@@ -186,10 +182,7 @@ SimilarCutoffOpt = Annotated[
     typer.Option(
         "--cutoff",
         "-c",
-        help=(
-            "Similarity threshold in the range [0.0, 1.0]."
-            " Candidates scoring below this value are excluded."
-        ),
+        help=("Similarity threshold in the range [0.0, 1.0]. Candidates scoring below this value are excluded."),
     ),
 ]
 

@@ -28,7 +28,6 @@ from src.biz.dfch.asdste100vocab.word_status import WordStatus
 
 
 class TestWordMeaning(unittest.TestCase):
-
     def change_me_test_convert_meaning_examples(self) -> None:
         """Temporary test that creates an updated word file."""
 
@@ -63,8 +62,6 @@ class TestWordMeaning(unittest.TestCase):
                 w.meanings.remove(artifact)
 
         sut.write_jsonl_file(
-            Path(
-                "./src/biz/dfch/asdste100vocab/data/asdste100_issue9_base.jsonl"
-            ),
+            Path("./src/biz/dfch/asdste100vocab/data/asdste100_issue9_base.jsonl"),
             overwrite=True,
         )

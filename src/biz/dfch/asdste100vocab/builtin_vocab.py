@@ -26,17 +26,7 @@ class BuiltInVocab(Enum):
     """ASD STE100 builtin vocabulary."""
 
     DATA_DIR = "data"
-    STE100_BASE = Path(
-        str(
-            resources.files(__package__).joinpath(
-                "data", "asdste100_issue9_base.jsonl"
-            )
-        )
-    )
+    STE100_BASE = Path(str(resources.files(__package__).joinpath("data", "asdste100_issue9_base.jsonl")))
     STE100_TECHNICAL_WORDS = Path(
-        str(
-            resources.files(__package__).joinpath(
-                "data", "asdste100_issue9_technical_words.jsonl"
-            )
-        )
+        str(resources.files(__package__).joinpath("data", "asdste100_issue9_technical_words.jsonl"))
     )

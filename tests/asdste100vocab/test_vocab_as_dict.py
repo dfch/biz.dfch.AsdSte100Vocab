@@ -28,7 +28,6 @@ from .vocab_file import VocabFile
 
 
 class TestVocabAsDict(unittest.TestCase):
-
     def test_as_dict_returns_empty_list(self):
 
         sut = Vocab(

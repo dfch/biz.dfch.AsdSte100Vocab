@@ -76,9 +76,7 @@ class Vocab:
             files = []
         assert isinstance(files, list), type(files)
         assert isinstance(use_ste100, bool), type(use_ste100)
-        assert isinstance(use_ste100_technical_word, bool), type(
-            use_ste100_technical_word
-        )
+        assert isinstance(use_ste100_technical_word, bool), type(use_ste100_technical_word)
         if predicate is not None:
             assert callable(predicate), type(predicate)
             self._predicate = predicate
@@ -299,9 +297,7 @@ class Vocab:
         matches = difflib.get_close_matches(value, names, n=n, cutoff=cutoff)
         return [item for item in self._items if item.name in matches]
 
-    def examine(
-        self, value: str, *, cutoff: float = DIFFLIB_CUTOFF_DEFAULT
-    ) -> list[Word]:
+    def examine(self, value: str, *, cutoff: float = DIFFLIB_CUTOFF_DEFAULT) -> list[Word]:
         """
         Search for words in the vocabulary using both fuzzy matching and
         partial/substring matching.
@@ -443,10 +439,7 @@ class Vocab:
             One JSON string per `Word`.
         """
 
-        return [
-            json.dumps(Vocab._word_to_dict(word), ensure_ascii=False)
-            for word in self._items
-        ]
+        return [json.dumps(Vocab._word_to_dict(word), ensure_ascii=False) for word in self._items]
 
     def write_jsonl_file(
         self,

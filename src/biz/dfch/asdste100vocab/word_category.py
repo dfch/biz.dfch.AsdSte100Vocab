@@ -63,30 +63,30 @@ class WordCategory(StrEnum):
         result: dict[WordCategory, str] = {
             WordCategory.DEFAULT: "Dictionary noun or verb",
             WordCategory.OFFICIAL_PARTS: "Official parts information",
-            WordCategory.VEHICLES_MACHINES: "Vehicles and machines, and locations on them",  # noqa: disable:E0501
-            WordCategory.TOOLS_EQUIPMENT: "Tools and support equipment, their parts, and locations on them",  # noqa: disable:E0501
-            WordCategory.MATERIALS: "Materials, consumables, and unwanted material",  # noqa: disable:E0501
-            WordCategory.FACILITIES_INFRASTRUCTURE: "Facilities, infrastructure, and logistic procedures",  # noqa: disable:E0501
-            WordCategory.SYSTEMS_COMPONENTS: "Systems, components and circuits, their functions, configurations, and parts",  # noqa: disable:E0501
-            WordCategory.MATHEMATICAL_SCIENCE: "Mathematical, scientific, engineering terms, and formulas",  # noqa: disable:E0501
+            WordCategory.VEHICLES_MACHINES: "Vehicles and machines, and locations on them",
+            WordCategory.TOOLS_EQUIPMENT: "Tools and support equipment, their parts, and locations on them",
+            WordCategory.MATERIALS: "Materials, consumables, and unwanted material",
+            WordCategory.FACILITIES_INFRASTRUCTURE: "Facilities, infrastructure, and logistic procedures",
+            WordCategory.SYSTEMS_COMPONENTS: "Systems, components and circuits, their functions, configurations, and parts",  # noqa: E501
+            WordCategory.MATHEMATICAL_SCIENCE: "Mathematical, scientific, engineering terms, and formulas",
             WordCategory.NAVIGATION: "Navigation and geographic terms",
-            WordCategory.NUMBERS_UNITS: "Numbers, units of measurement and time (and their symbols)",  # noqa: disable:E0501
+            WordCategory.NUMBERS_UNITS: "Numbers, units of measurement and time (and their symbols)",
             WordCategory.QUOTED_TEXT: "Quoted text",
-            WordCategory.ROLES_GROUPS: "Professional roles, individuals, groups, organizations, and geopolitical entities",  # noqa: disable:E0501
+            WordCategory.ROLES_GROUPS: "Professional roles, individuals, groups, organizations, and geopolitical entities",  # noqa: E501
             WordCategory.BODY_TERMS: "Parts of the body",
-            WordCategory.EFFECTS_FOOD_BEVERAGE: "Common personal effects, food, and beverages",  # noqa: disable:E0501
+            WordCategory.EFFECTS_FOOD_BEVERAGE: "Common personal effects, food, and beverages",
             WordCategory.MEDICAL_TERMS: "Medical terms",
-            WordCategory.DOCUMENTATION: "Official documents, parts of documentation, standards, and guidelines",  # noqa: disable:E0501
-            WordCategory.ENVIRONMENTAL_TERMS: "Environmental and operational conditions",  # noqa: disable:E0501
+            WordCategory.DOCUMENTATION: "Official documents, parts of documentation, standards, and guidelines",
+            WordCategory.ENVIRONMENTAL_TERMS: "Environmental and operational conditions",
             WordCategory.COLORS: "Colors",
             WordCategory.DAMAGE_TERMS: "Damage terms",
-            WordCategory.ICT_TERMS: "Computer science, information and communication technology",  # noqa: disable:E0501
-            WordCategory.CIVIL_MILITARY_TERMS: "Civil and military operations",  # noqa: disable:E0501
+            WordCategory.ICT_TERMS: "Computer science, information and communication technology",
+            WordCategory.CIVIL_MILITARY_TERMS: "Civil and military operations",
             WordCategory.LAW_REGULATIONS: "Law and regulations",
-            WordCategory.ANIMALS_PLANTS: "Animals, plants, and other life forms",  # noqa: disable:E0501
-            WordCategory.TV_MANUFACTURING_PROCESSES: "Manufacturing processes",  # noqa: disable=E0501
-            WordCategory.TV_COMPUTER_PROCESSES: "Computer processes and applications",  # noqa: disable=E0501
-            WordCategory.TV_INSTRUCTIONS_INFORMATION: "Instructions and information for applicable subject fields",  # noqa: disable=E0501
+            WordCategory.ANIMALS_PLANTS: "Animals, plants, and other life forms",
+            WordCategory.TV_MANUFACTURING_PROCESSES: "Manufacturing processes",
+            WordCategory.TV_COMPUTER_PROCESSES: "Computer processes and applications",
+            WordCategory.TV_INSTRUCTIONS_INFORMATION: "Instructions and information for applicable subject fields",
             WordCategory.TV_LAW_REGULATIONS: "Law and regulations",
         }
 
@@ -108,11 +108,7 @@ class WordCategory(StrEnum):
 
             return []
 
-        result = [
-            key
-            for key, value in WordCategory.get_descriptions().items()
-            if regex.search(value)
-        ]
+        result = [key for key, value in WordCategory.get_descriptions().items() if regex.search(value)]
 
         return result
 

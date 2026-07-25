@@ -32,7 +32,6 @@ from .vocab_file import VocabFile
 
 
 class TestVocab(unittest.TestCase):
-
     def test_load_all(self):
 
         expected = 2979

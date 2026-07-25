@@ -69,9 +69,7 @@ def _lower_word_name(word: dict) -> dict:
         word["name"] = word["name"].lower()
 
     if "alternatives" in word and isinstance(word["alternatives"], list):
-        word["alternatives"] = [
-            _lower_word_name(alt) for alt in word["alternatives"]
-        ]
+        word["alternatives"] = [_lower_word_name(alt) for alt in word["alternatives"]]
 
     if (
         "note" in word
@@ -108,9 +106,7 @@ def convert_names_to_lower_case(input_path: Path, output_path: Path) -> int:
             try:
                 word = json.loads(raw_line)
             except json.JSONDecodeError as exc:
-                raise ValueError(
-                    f"JSON decode error on line {lineno}: {exc}"
-                ) from exc
+                raise ValueError(f"JSON decode error on line {lineno}: {exc}") from exc
 
             converted = _lower_word_name(word)
             fh_out.write(json.dumps(converted, ensure_ascii=False) + "\n")
@@ -125,7 +121,6 @@ def convert_names_to_lower_case(input_path: Path, output_path: Path) -> int:
 
 
 class TestConvertNameToLowerCase(unittest.TestCase):
-
     FIXTURE = Path(__file__).parent / "test_convert_name_to_lower_case.jsonl"
 
     def _load_fixture(self) -> list[dict]:
@@ -159,9 +154,7 @@ class TestConvertNameToLowerCase(unittest.TestCase):
     def test_alternative_name_is_lowercased(self):
         word = {
             "name": "abaft",
-            "alternatives": [
-                {"name": "AFT OF", "alternatives": [], "note": None}
-            ],
+            "alternatives": [{"name": "AFT OF", "alternatives": [], "note": None}],
             "note": None,
         }
         result = _lower_word_name(word)
