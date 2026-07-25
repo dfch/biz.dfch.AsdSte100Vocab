@@ -59,6 +59,7 @@ dev = [
     "pylint",
     "python-dotenv>=1.2.2",
     "rich>=15.0.0",
+    "ruff>=0.16.0",
     "typer>=0.12",
     "uv",
 ]
@@ -70,8 +71,17 @@ Issues = "https://github.com/dfch/biz.dfch.AsdSte100Vocab/issues"
 [project.scripts]
 vocab = "biz.dfch.asdste100vocab.cli:app"
 
-[tool.black]  
-line-length = 80
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "W"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["E501"]
+
+[tool.pylint.format]
+max-line-length = 120
 
 [tool.setuptools]  
 include-package-data = true

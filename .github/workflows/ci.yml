@@ -41,11 +41,15 @@ jobs:
     - name: Verify tools 2
       run: |
         uv run --frozen python --version
+        uv run --frozen ruff --version
         uv run --frozen pylint --version
 
-    - name: Analyzing the code with pylint
+    - name: Analyzing the code with pylint and ruff
       run: |
+        uv run --frozen ruff format --check
+        uv run --frozen ruff check
         uv run --frozen pylint $(git ls-files '*.py') || true
 
     - name: Run unit tests
-      run: uv run --frozen python -m unittest discover -v -s tests -t . -p "test_*.py"
+      run: |
+        uv run --frozen python -m unittest discover -v -s tests -t . -p "test_*.py"
