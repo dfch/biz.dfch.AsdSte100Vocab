@@ -78,6 +78,66 @@ VOCAB_CATEGORY=TN21
 VOCAB_FILE=./vocab.jsonl
 ```
 
+## Make a Release
+
+### 1. Make sure that all tests pass
+
+Before releasing, make sure the CI pipeline is green on the `dev` branch:
+
+```
+uv run --frozen ruff format --check
+uv run --frozen ruff check
+uv run --frozen pylint $(git ls-files '*.py') || true
+uv run --frozen python -m unittest discover -v -s tests -t . -p "test_*.py"
+```
+
+### 2. Increase the version
+
+Update the version in `pyproject.toml`:
+```toml
+version = "x.y.z"
+```
+
+### 3. Commit and push to `dev`
+
+```
+git add pyproject.toml
+git commit -m "chore: bump version to vx.y.z"
+git push origin dev
+```
+
+### 4. Merge `dev` into `main`
+
+```
+git checkout main
+git merge dev
+git push origin main
+```
+
+### 5. Create and push a version tag
+
+This will create a binary artifact of the application and add it to the `release`.
+
+```
+export VERSION=x.y.z
+git tag v${VERSION}
+git push origin v${VERSION}
+```
+
+Then, select the `dev` branch to continue your work.
+
+```
+git checkout dev
+```
+
+Pushing the tag automatically triggers the `publish.yml` workflow, which will:
+* build the executable with `pyinstaller` for Linux x86_64
+    (**this step creates the artifact**)
+* rename it to `AsdSte100Lookup-v<version>-linux-x86_64`
+* create a GitHub Release with auto-generated release notes
+* upload the binary as a release artifact
+    (**this step adds the artifact to the release**)
+
 
 ## License
 
