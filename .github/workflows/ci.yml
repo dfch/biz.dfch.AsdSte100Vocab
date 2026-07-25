@@ -38,7 +38,7 @@ jobs:
     - name: Install dependencies
       run: uv sync --frozen --python "${{ matrix.python-version }}" --all-extras
 
-    - name: Verify tools 1
+    - name: Verify tools 2
       run: |
         uv run --frozen python --version
         uv run --frozen pylint --version
