@@ -26,7 +26,7 @@ class Info:
 
     name = "biz.dfch.AsdSte100Vocab"
     try:
-        version = metadata_version("biz-dfch-ste100vocab")
+        version = metadata_version("biz-dfch-asdste100vocab")
     except PackageNotFoundError:
         version = "unknown"
     description = f"{name}, v{version}. The ASD-STE100 (Simplified Technical English) Issue 9 vocabulary."

@@ -34,7 +34,7 @@ wheels = [
 ]
 
 [[package]]
-name = "biz-dfch-ste100vocab"
+name = "biz-dfch-asdste100vocab"
 version = "0.7.1"
 source = { editable = "." }
 dependencies = [

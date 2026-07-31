@@ -3,7 +3,7 @@ requires = ["setuptools>=81.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "biz-dfch-ste100vocab"
+name = "biz-dfch-asdste100vocab"
 version = "0.7.1"
 description = "The ASD-STE100 (Simplified Technical English) Issue 9 vocabulary."
 readme = "README.md"

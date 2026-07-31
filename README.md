@@ -4,9 +4,9 @@
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPLv3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 ![Python](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13-blue.svg)
 [![Pylint and unittest](https://github.com/dfch/biz.dfch.AsdSte100Vocab/actions/workflows/ci.yml/badge.svg)](https://github.com/dfch/biz.dfch.AsdSte100Vocab/actions/workflows/ci.yml)
-[![TestPyPI version](https://img.shields.io/badge/dynamic/json?url=https://test.pypi.org/pypi/biz-dfch-ste100vocab/json&label=TestPyPI&query=$.info.version&color=orange)](https://test.pypi.org/project/biz-dfch-ste100vocab/)
-[![PyPI version](https://img.shields.io/badge/dynamic/json?url=https://www.pypi.org/pypi/biz-dfch-ste100vocab/json&label=PyPI&query=$.info.version&color=blue)](https://www.pypi.org/project/biz-dfch-ste100vocab/)
-[![PyPI downloads](https://img.shields.io/pypi/dm/biz-dfch-ste100vocab.svg)](https://pypistats.org/packages/biz-dfch-ste100vocab)
+[![TestPyPI version](https://img.shields.io/badge/dynamic/json?url=https://test.pypi.org/pypi/biz-dfch-asdste100vocab/json&label=TestPyPI&query=$.info.version&color=orange)](https://test.pypi.org/project/biz-dfch-asdste100vocab/)
+[![PyPI version](https://img.shields.io/badge/dynamic/json?url=https://www.pypi.org/pypi/biz-dfch-asdste100vocab/json&label=PyPI&query=$.info.version&color=blue)](https://www.pypi.org/project/biz-dfch-asdste100vocab/)
+[![PyPI downloads](https://img.shields.io/pypi/dm/biz-dfch-asdste100vocab.svg)](https://pypistats.org/packages/biz-dfch-asdste100vocab)
 
 ## Introduction
 
@@ -26,18 +26,20 @@ This is a Python library, that implements an [ASD-STE100 Issue 9](https://www.as
 
 [biz.dfch.AsdSte100Lookup](https://github.com/dfch/biz.dfch.AsdSte100Lookup) uses this library for its word lists and the display of these words.
 
+NOTE: the previous name on [`pypi`](https://www.pypi.org/) was [`biz-dfch-ste100vocab`](https://www.pypi.org/project/biz-dfch-ste100vocab/). From version `v0.8.0` this library name is `biz-dfch-asdste100vocab`.
+
 ## Installation
 
-[biz-dfch-ste100vocab](https://pypi.org/project/biz-dfch-ste100vocab/) is on [PyPI](https://pypi.org). Create a virtual environment and install the library with `pip`:
+[biz-dfch-asdste100vocab](https://pypi.org/project/biz-dfch-asdste100vocab/) is on [PyPI](https://pypi.org). Create a virtual environment and install the library with `pip`:
 
 ```
-pip install biz-dfch-ste100vocab
+pip install biz-dfch-asdste100vocab
 ```
 
 Or install with `uv`:
 
 ```
-uv add biz-dfch-ste100vocab
+uv add biz-dfch-asdste100vocab
 ```
 
 ## Create your own vocabulary entries
@@ -80,9 +82,9 @@ VOCAB_FILE=./vocab.jsonl
 
 ## Make a Release
 
-### 1. Make sure that all tests pass
+### 1. Make sure that all tests are satisfactory
 
-Before releasing, make sure the CI pipeline is green on the `dev` branch:
+Before you make the release, make sure the CI pipeline is green on the `dev` branch:
 
 ```
 uv run --frozen ruff format --check
@@ -94,6 +96,7 @@ uv run --frozen python -m unittest discover -v -s tests -t . -p "test_*.py"
 ### 2. Increase the version
 
 Update the version in `pyproject.toml`:
+
 ```toml
 version = "x.y.z"
 ```
@@ -131,13 +134,11 @@ git checkout dev
 ```
 
 Pushing the tag automatically triggers the `publish.yml` workflow, which will:
-* build the executable with `pyinstaller` for Linux x86_64
+* build the `sdist` and `sheel` with `uv build`
     (**this step creates the artifact**)
-* rename it to `AsdSte100Lookup-v<version>-linux-x86_64`
 * create a GitHub Release with auto-generated release notes
-* upload the binary as a release artifact
+* upload the files as a release artifact
     (**this step adds the artifact to the release**)
-
 
 ## License
 
