@@ -1,12 +1,28 @@
+# DEPRECATED: This is the old `biz-dfch-ste100vocab` package
+
+**This repository and package are deprecated. Use the new package instead:**
+
+```bash
+uv add biz-dfch-asdste100vocab
+```
+
+(or with `pip`)
+
+```bash
+pip install biz-dfch-asdste100vocab
+```
+
+All software documentation below continue to work (the repo name is unchanged), but for all projects, install from **biz-dfch-asdste100vocab** on PyPI.
+
 # biz.dfch.AsdSte100Vocab
 
 [![ASD-STE100: Issue 9](https://img.shields.io/badge/ASD--STE100-Issue%209-blue.svg)](https://www.asd-ste100.org/)
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPLv3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
 ![Python](https://img.shields.io/badge/python-3.11%20%7C%203.12%20%7C%203.13-blue.svg)
 [![Pylint and unittest](https://github.com/dfch/biz.dfch.AsdSte100Vocab/actions/workflows/ci.yml/badge.svg)](https://github.com/dfch/biz.dfch.AsdSte100Vocab/actions/workflows/ci.yml)
-[![TestPyPI version](https://img.shields.io/badge/dynamic/json?url=https://test.pypi.org/pypi/biz-dfch-ste100vocab/json&label=TestPyPI&query=$.info.version&color=orange)](https://test.pypi.org/project/biz-dfch-ste100vocab/)
-[![PyPI version](https://img.shields.io/badge/dynamic/json?url=https://www.pypi.org/pypi/biz-dfch-ste100vocab/json&label=PyPI&query=$.info.version&color=blue)](https://www.pypi.org/project/biz-dfch-ste100vocab/)
-[![PyPI downloads](https://img.shields.io/pypi/dm/biz-dfch-ste100vocab.svg)](https://pypistats.org/packages/biz-dfch-ste100vocab)
+[![TestPyPI version](https://img.shields.io/badge/dynamic/json?url=https://test.pypi.org/pypi/biz-dfch-asdste100vocab/json&label=TestPyPI&query=$.info.version&color=orange)](https://test.pypi.org/project/biz-dfch-asdste100vocab/)
+[![PyPI version](https://img.shields.io/badge/dynamic/json?url=https://www.pypi.org/pypi/biz-dfch-asdste100vocab/json&label=PyPI&query=$.info.version&color=blue)](https://www.pypi.org/project/biz-dfch-asdste100vocab/)
+[![PyPI downloads](https://img.shields.io/pypi/dm/biz-dfch-asdste100vocab.svg)](https://pypistats.org/packages/biz-dfch-asdste100vocab)
 
 ## Introduction
 
@@ -28,16 +44,16 @@ This is a Python library, that implements an [ASD-STE100 Issue 9](https://www.as
 
 ## Installation
 
-[biz-dfch-ste100vocab](https://pypi.org/project/biz-dfch-ste100vocab/) is on [PyPI](https://pypi.org). Create a virtual environment and install the library with `pip`:
+**This package is deprecated.** Use the new package on [PyPI](https://pypi.org):
 
 ```
-pip install biz-dfch-ste100vocab
+pip install biz-dfch-asdste100vocab
 ```
 
 Or install with `uv`:
 
 ```
-uv add biz-dfch-ste100vocab
+uv add biz-dfch-asdste100vocab
 ```
 
 ## Create your own vocabulary entries
