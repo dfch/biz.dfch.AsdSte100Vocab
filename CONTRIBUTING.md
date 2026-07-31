@@ -3,7 +3,7 @@
 Thank you for your interest in contributing to **biz.dfch.AsdSte100Vocab**!  
 This document describes how to propose changes, report bugs, and submit patches.
 
-The project is licensed under the **GNU General Public License v3.0 (GPLv3)**.  
+The project is licensed under the **Affero GNU General Public License v3.0 (AGPLv3)**.  
 By contributing, you agree that your contributions will be licensed under the
 same license as the project.
 
