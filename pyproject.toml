@@ -47,7 +47,7 @@ classifiers = [
 
 dependencies = [
     "dacite>=1.9.2",
-    "dotenv>=0.9.9",
+    "python-dotenv>=1.2.2",
     "typer>=0.12",
 ]
 
@@ -64,7 +64,6 @@ dev = [
     "biz-dfch-asdste100vocab[test]",
     "twine",
     "build",
-    "python-dotenv>=1.2.2",
     "rich>=15.0.0",
     "ruff>=0.16.0",
     "uv",
