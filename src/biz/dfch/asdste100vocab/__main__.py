@@ -20,7 +20,7 @@
 
 def main():
     """main function."""
-    print("ste100vocab")
+    print("biz-dfch-ste100vocab")
 
 
 if __name__ == "__main__":
