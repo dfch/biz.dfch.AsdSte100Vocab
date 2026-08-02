@@ -8,6 +8,15 @@
 [![PyPI version](https://img.shields.io/badge/dynamic/json?url=https://www.pypi.org/pypi/biz-dfch-asdste100vocab/json&label=PyPI&query=$.info.version&color=blue)](https://www.pypi.org/project/biz-dfch-asdste100vocab/)
 [![PyPI downloads](https://img.shields.io/pypi/dm/biz-dfch-asdste100vocab.svg)](https://pypistats.org/packages/biz-dfch-asdste100vocab)
 
+## Table of Contents
+
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Create your own vocabulary entries](#create-your-own-vocabulary-entries)
+- [Related Projects](#related-projects)
+- [Make a Release](#make-a-release)
+- [License](#license)
+
 ## Introduction
 
 This is a Python library, that implements an [ASD-STE100 Issue 9](https://www.asd-ste100.org/) compatible dictionary, that includes the Technical Nouns (TN) and Technical Verbs (TV) from the rule R1.5 and rule R1.12. A [`word`](./src/biz/dfch/asdste100vocab/word.py) has these properties:
@@ -79,6 +88,16 @@ VOCAB_TYPE=TN
 VOCAB_CATEGORY=TN21
 VOCAB_FILE=./vocab.jsonl
 ```
+
+## Related Projects
+
+This library is part of the ASD-STE100 tooling family:
+
+* [biz.dfch.AsdSte100Vocab](https://github.com/dfch/biz.dfch.AsdSte100Vocab) — this repo: the ASD-STE100 Issue 9 vocabulary library
+* [biz.dfch.AsdSte100Rules](https://github.com/dfch/biz.dfch.AsdSte100Rules) — the ASD-STE100 Issue 9 ruleset library
+* [biz.dfch.AsdSte100Nlp](https://github.com/dfch/biz.dfch.AsdSte100Nlp) — WordNet-based synonym lookup for ASD-STE100 words
+* [biz.dfch.AsdSte100Lookup](https://github.com/dfch/biz.dfch.AsdSte100Lookup) — an interactive CLI to look up words and rules
+* [biz.dfch.AsdSte100Mcp](https://github.com/dfch/biz.dfch.AsdSte100Mcp) — an MCP server exposing vocabulary and rules lookup tools
 
 ## Make a Release
 
