@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.1] - 2026-08-02
+
+### Fixed
+
+- **Vocabulary data**: Corrected a missing space in the STE example for the `CONFIRM` entry ("A GROUND RUN" instead of "AGROUND RUN"). Fixes #33.
+
 ## [0.8.0] - 2026-07-31
 
 ### Changed
