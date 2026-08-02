@@ -35,6 +35,10 @@ This is a Python library, that implements an [ASD-STE100 Issue 9](https://www.as
 
 [biz.dfch.AsdSte100Lookup](https://github.com/dfch/biz.dfch.AsdSte100Lookup) uses this library for its word lists and the display of these words.
 
+ASD-STE100: Copyright by (c) [ASD](https://www.asd-europe.org/).
+
+I am in no way affiliated with ASD. ASD does not endorse my work.
+
 NOTE: the previous name on [`pypi`](https://www.pypi.org/) was [`biz-dfch-ste100vocab`](https://www.pypi.org/project/biz-dfch-ste100vocab/). From version `v0.8.0` this library name is `biz-dfch-asdste100vocab`.
 
 ## Installation
